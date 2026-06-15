@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
  */
 public class GestionRendezVous {
 
+	Logger logger;
     private final List<RendezVous> rendezVous;
 
     /**
@@ -36,13 +37,13 @@ public class GestionRendezVous {
                                          LocalDateTime dateHeure, int dureeMinutes, String motif) {
         // Vérification de disponibilité du médecin
         if (!estDisponible(medecin, dateHeure)) {
-            logger.infoln("ERREUR : Le Dr " + medecin.getNomComplet() +
+            logger.info("ERREUR : Le Dr " + medecin.getNomComplet() +
                                " n'est pas disponible à ce créneau.");
             return null;
         }
         RendezVous rdv = new RendezVous(patient, medecin, dateHeure, dureeMinutes, motif);
         rendezVous.add(rdv);
-        logger.infoln("Rendez-vous créé : " + rdv);
+        logger.info("Rendez-vous créé : " + rdv);
         return rdv;
     }
 
@@ -52,11 +53,11 @@ public class GestionRendezVous {
     public void annulerRendezVous(int id) {
         RendezVous rdv = rechercherParId(id);
         if (rdv == null) {
-            logger.infoln("ERREUR : Rendez-vous ID=" + id + " introuvable.");
+            logger.info("ERREUR : Rendez-vous ID=" + id + " introuvable.");
             return;
         }
         rdv.annuler();
-        logger.infoln("Rendez-vous annulé : ID=" + id);
+        logger.info("Rendez-vous annulé : ID=" + id);
     }
 
     /**
@@ -65,11 +66,11 @@ public class GestionRendezVous {
     public void confirmerRendezVous(int id) {
         RendezVous rdv = rechercherParId(id);
         if (rdv == null) {
-            logger.infoln("ERREUR : Rendez-vous ID=" + id + " introuvable.");
+            logger.info("ERREUR : Rendez-vous ID=" + id + " introuvable.");
             return;
         }
         rdv.confirmer();
-        logger.infoln("Rendez-vous confirmé : ID=" + id);
+        logger.info("Rendez-vous confirmé : ID=" + id);
     }
 
     /**
@@ -78,11 +79,11 @@ public class GestionRendezVous {
     public boolean terminerRendezVous(int id) {
         RendezVous rdv = rechercherParId(id);
         if (rdv == null) {
-            logger.infoln("ERREUR : Rendez-vous ID=" + id + " introuvable.");
+            logger.info("ERREUR : Rendez-vous ID=" + id + " introuvable.");
             return false;
         }
         rdv.terminer();
-        logger.infoln("Rendez-vous terminé : ID=" + id);
+        logger.info("Rendez-vous terminé : ID=" + id);
         return true;
     }
 

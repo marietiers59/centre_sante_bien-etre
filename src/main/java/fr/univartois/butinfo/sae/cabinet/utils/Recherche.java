@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Recherche {
 
+	Logger logger;
     private final GestionPatients gestionPatients;
     private final GestionMedecins gestionMedecins;
 
@@ -45,9 +46,9 @@ public class Recherche {
     public Patient rechercherPatientParSecu(String numeroSecu) {
         Patient p = gestionPatients.rechercherParNumeroSecu(numeroSecu);
         if (p != null) {
-            logger.infoln("Patient trouvé : " + p);
+            logger.info("Patient trouvé : " + p);
         } else {
-            logger.infoln("Aucun patient trouvé pour le numéro de sécu : " + numeroSecu);
+            logger.info("Aucun patient trouvé pour le numéro de sécu : " + numeroSecu);
         }
         return p;
     }
@@ -81,9 +82,9 @@ public class Recherche {
     public Medecin rechercherMedecinParOrdre(String numeroOrdre) {
         Medecin m = gestionMedecins.rechercherParNumeroOrdre(numeroOrdre);
         if (m != null) {
-            logger.infoln("Médecin trouvé : " + m);
+            logger.info("Médecin trouvé : " + m);
         } else {
-            logger.infoln("Aucun médecin trouvé pour le n° d'ordre : " + numeroOrdre);
+            logger.info("Aucun médecin trouvé pour le n° d'ordre : " + numeroOrdre);
         }
         return m;
     }
@@ -93,20 +94,20 @@ public class Recherche {
     // -------------------------
 
     private void afficherResultatsPatients(List<Patient> liste, String titre) {
-        logger.infoln("--- " + titre + " (" + liste.size() + " résultat(s)) ---");
+        logger.info("--- " + titre + " (" + liste.size() + " résultat(s)) ---");
         if (liste.isEmpty()) {
-            logger.infoln("  Aucun résultat.");
+            logger.info("  Aucun résultat.");
         } else {
-            for (Patient p : liste) logger.infoln("  " + p);
+            for (Patient p : liste) logger.info("  " + p);
         }
     }
 
     private void afficherResultatsMedecins(List<Medecin> liste, String titre) {
-        logger.infoln("--- " + titre + " (" + liste.size() + " résultat(s)) ---");
+        logger.info("--- " + titre + " (" + liste.size() + " résultat(s)) ---");
         if (liste.isEmpty()) {
-            logger.infoln("  Aucun résultat.");
+            logger.info("  Aucun résultat.");
         } else {
-            for (Medecin m : liste) logger.infoln("  " + m);
+            for (Medecin m : liste) logger.info("  " + m);
         }
     }
 
