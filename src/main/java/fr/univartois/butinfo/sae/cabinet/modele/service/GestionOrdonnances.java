@@ -5,6 +5,9 @@ import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medecin;
 import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medicament;
 import fr.univartois.butinfo.sae.cabinet.modele.domaine.Ordonnance;
 import fr.univartois.butinfo.sae.cabinet.modele.domaine.Patient;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +17,14 @@ import java.util.List;
  */
 public class GestionOrdonnances {
 
-    private final List<Ordonnance> ordonnances;
+    private final ObservableList<Ordonnance> ordonnances;
 
     /**
      * Constructeur : initialise la liste vide.
      */
     public GestionOrdonnances() {
-        this.ordonnances = new ArrayList<>();
+        this.ordonnances = FXCollections.observableArrayList();
+        
     }
 
     // -------------------------

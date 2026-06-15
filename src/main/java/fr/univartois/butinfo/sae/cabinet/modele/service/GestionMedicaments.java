@@ -3,6 +3,8 @@ package fr.univartois.butinfo.sae.cabinet.modele.service;
 import fr.univartois.butinfo.sae.cabinet.Main;
 
 import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medicament;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +20,13 @@ public class GestionMedicaments {
 	private static final Logger logger = LoggerFactory.getLogger(GestionMedicaments.class.getSimpleName());
 
 
-    private final List<Medicament> medicaments;
+    private final ObservableList<Medicament> medicaments;
 
     /**
      * Constructeur : initialise la liste vide.
      */
     public GestionMedicaments() {
-        this.medicaments = new ArrayList<>();
+        this.medicaments = FXCollections.observableArrayList();
     }
 
     // -------------------------
