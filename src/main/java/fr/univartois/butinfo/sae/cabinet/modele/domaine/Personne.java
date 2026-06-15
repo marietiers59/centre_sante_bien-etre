@@ -1,5 +1,4 @@
-package fr.univartois.butinfo.sae.cabinet.modele;
-
+package fr.univartois.butinfo.sae.cabinet.modele.domaine;
 /**
  * Classe abstraite représentant une personne (base commune pour Patient et Medecin).
  * Applique le principe d'encapsulation et sert de superclasse pour l'héritage.

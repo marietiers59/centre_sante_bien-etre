@@ -1,5 +1,4 @@
-package fr.univartois.butinfo.sae.cabinet.modele;
-
+package fr.univartois.butinfo.sae.cabinet.modele.domaine;
 /**
  * Classe représentant une ligne de prescription dans une ordonnance. Associe un médicament à sa
  * posologie et durée de traitement.

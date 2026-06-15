@@ -1,4 +1,4 @@
-package fr.univartois.butinfo.sae.cabinet.modele;
+package fr.univartois.butinfo.sae.cabinet.modele.domaine;
 
 import fr.univartois.butinfo.sae.cabinet.enumeration.StatutRendezVous;
 import java.time.LocalDateTime;
