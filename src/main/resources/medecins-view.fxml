@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univartois.butinfo.sae.cabinet.controleur.MedecinsController">
+   <left>
+      <ListView fx:id="listeMedecins" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="nomLabel" text="Nom :" />
+            <Label fx:id="prenomLabel" text="Prénom :" />
+            <Label fx:id="specialiteLabel" text="Spécialité :" />
+            <Label fx:id="telephoneLabel" text="Téléphone :" />
+            <Label fx:id="emailLabel" text="Email :" />
+            <Label fx:id="tarifLabel" text="Tarif : " />
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="ajouterButton" mnemonicParsing="false" onAction="#ajouterMedecin" text="Ajouter" />
+            <Button fx:id="modifierButton" mnemonicParsing="false" onAction="#modifierMedecin" text="Modifier" />
+            <Button fx:id="supprimerButton" mnemonicParsing="false" onAction="#supprimerMedecin" text="Supprimer" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
