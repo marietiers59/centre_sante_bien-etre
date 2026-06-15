@@ -8,24 +8,24 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="MedicamentControlleur">
+<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="fr.univartois.butinfo.sae.cabinet.controller.MedicamentControlleur">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <ListView prefHeight="400.0" prefWidth="175.0" />
+            <ListView fx:id="medicamentListView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <VBox prefHeight="123.0" prefWidth="417.0">
+            <VBox prefHeight="123.0" prefWidth="417.0" spacing="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                <children>
-                  <Label text="Détails du medicament" />
-                  <Label fx:id="id" text="Id : " />
-                  <Label fx:id="nom" text="Nom : " />
-                  <Label fx:id="label" text="Description : " />
-                  <Label fx:id="prix" text="Prix :" />
+                  <Label style="-fx-font-weight: bold;" text="Détails du medicament" />
+                  <Label fx:id="idLabel" text="Id : " />
+                  <Label fx:id="nomLabel" text="Nom : " />
+                  <Label fx:id="descriptionLabel" text="Description : " />
+                  <Label fx:id="prixLabel" text="Prix :" />
                </children>
             </VBox>
-            <HBox layoutX="2.0" layoutY="284.0" prefHeight="113.0" prefWidth="417.0">
+            <HBox alignment="BOTTOM_LEFT" prefHeight="50.0" prefWidth="417.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                <children>
                   <Button fx:id="ajouter" mnemonicParsing="false" text="Ajouter" />
                </children>
