@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  */
 public class GestionMedecins {
 	
-	private static final Logger logger = LoggerFactory.getLogger(Main.class.getSimpleName());
+	private static final Logger logger = LoggerFactory.getLogger(GestionMedecins.class.getSimpleName());
 
     private final List<Medecin> medecins;
 
