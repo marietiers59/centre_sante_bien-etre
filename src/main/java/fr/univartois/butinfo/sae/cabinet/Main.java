@@ -1,9 +1,6 @@
 package fr.univartois.butinfo.sae.cabinet;
 
 import fr.univartois.butinfo.sae.cabinet.enumeration.Specialite;
-
-
-
 import fr.univartois.butinfo.sae.cabinet.modele.Medecin;
 import fr.univartois.butinfo.sae.cabinet.modele.Medicament;
 import fr.univartois.butinfo.sae.cabinet.modele.Ordonnance;
@@ -25,19 +22,35 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Classe principale de démonstration du système de gestion de cabinet médical.
- * Exécutez cette classe pour tester toutes les fonctionnalités.
+ * Classe principale du système de gestion de cabinet médical.
+ * Cette classe fait office de point d'entrée pour l'application (Démonstration) 
+ * et permet de valider l'ensemble des fonctionnalités du système : les services CRUD, 
+ * la prise de rendez-vous avec gestion des conflits, la création d'ordonnances complexes,
+ * ainsi que les modules de statistiques et de recherche transversale.
+ *
+ * @author Loan Bilcke
+ * @version 1.0
  */
 public class Main {
-	
-	private static final Logger logger = LoggerFactory.getLogger(Main.class.getSimpleName());
-    
-	public static void main(String[] args) {
 
-    	logger.info("╔═══════════════════════════════════════════╗");
-    	logger.info("║   SYSTÈME DE GESTION DE CABINET MÉDICAL   ║");
-    	logger.info("╚═══════════════════════════════════════════╝\n");
+    /**
+     * Logger SLF4J de la classe Main servant à l'affichage structuré des données 
+     * et des étapes de la démonstration dans la console.
+     */
+    private static final Logger logger = LoggerFactory.getLogger(Main.class.getSimpleName());
 
+    /**
+     * Méthode principale exécutant le scénario complet de démonstration du cabinet médical.
+     * Elle orchestre l'initialisation des composants, les jeux de données d'essais,
+     * les interactions et l'affichage des états de sortie.
+     *
+     * @param args Les arguments de la ligne de commande (non utilisés ici).
+     */
+    public static void main(String[] args) {
+
+        logger.info("╔═══════════════════════════════════════════╗");
+        logger.info("║   SYSTÈME DE GESTION DE CABINET MÉDICAL   ║");
+        logger.info("╚═══════════════════════════════════════════╝\n");
 
         // ============================================================
         // 1. Initialisation des services
@@ -112,10 +125,14 @@ public class Main {
         RendezVous rdv3 = gestionRdv.prendreRendezVous(p3, dr3, rdv3Date, 20, "Vaccination enfant");
 
         // Confirmation du premier RDV
-        if (rdv1 != null) gestionRdv.confirmerRendezVous(rdv1.getId());
+        if (rdv1 != null) {
+            gestionRdv.confirmerRendezVous(rdv1.getId());
+        }
 
         // Annulation du troisième RDV
-        if (rdv3 != null) gestionRdv.annulerRendezVous(rdv3.getId());
+        if (rdv3 != null) {
+            gestionRdv.annulerRendezVous(rdv3.getId());
+        }
 
         // ============================================================
         // 6. Création d'ordonnances
@@ -135,14 +152,13 @@ public class Main {
                 ordo2.getId(), med4, 1,"1 comprimé le matin", 30, "Surveillance tension artérielle");
 
         logger.info("\n--- Détail des ordonnances ---");
-        logger.info("{}",ordo1);
-        logger.info("{}",ordo2);
+        logger.info("{}", ordo1);
+        logger.info("{}", ordo2);
 
         // ============================================================
         // 7. Module de recherche
         // ============================================================
         logger.info("\n=== MODULE DE RECHERCHE ===");
-
 
         logger.info(">> Recherche patient par nom 'leblanc':");
         List<Patient> patientsParNom = recherche.rechercherPatientParNom("leblanc");
@@ -167,11 +183,11 @@ public class Main {
         if (patientSecu != null) {
             logger.info("  {}", patientSecu);
         }
+
         // ============================================================
         // 8. Module de statistiques
         // ============================================================
         logger.info("\n=== MODULE DE STATISTIQUES ===");
-
         logger.info(stats.getStatistiques());
 
         Medecin actif = stats.getMedecinLePlusActif();
@@ -179,7 +195,6 @@ public class Main {
             logger.info("Medecin le plus actif : Dr {}", actif.getNomComplet());
         } else {
             logger.info("Aucun medecin actif trouve.");
-
         }
 
         // ============================================================
@@ -204,39 +219,42 @@ public class Main {
         logger.info("\n=== ÉTAT FINAL ===");
         List<Patient> patients = gestionPatients.listerTousLesPatients();
         if (patients.isEmpty()) {
-        	logger.info("Aucun patient enregistré.");
+            logger.info("Aucun patient enregistré.");
             return;
         }
         logger.info("=== LISTE DES PATIENTS (" + patients.size() + ") ===");
         for (Patient p : patients) {
-            logger.info("{}",p);
+            logger.info("{}", p);
         }
+        
         List<Medecin> medecins = gestionMedecins.listerTousLesMedecins();
         if (medecins.isEmpty()) {
-        	logger.info("Aucun médecin enregistré.");
+            logger.info("Aucun médecin enregistré.");
             return;
         }
         logger.info("=== LISTE DES MÉDECINS (" + medecins.size() + ") ===");
         for (Medecin m : medecins) {
-        	logger.info("{}",m);
+            logger.info("{}", m);
         }
+        
         List<Medicament> medicaments = gestionMedicaments.listerTousLesMedicaments();
         if (medicaments.isEmpty()) {
-        	logger.info("Aucun médicament enregistré.");
+            logger.info("Aucun médicament enregistré.");
             return;
         }
         logger.info("=== LISTE DES MÉDICAMENTS (" + medicaments.size() + ") ===");
         for (Medicament m : medicaments) {
-        	logger.info("{}",m);
+            logger.info("{}", m);
         }
+        
         List<RendezVous> rendezVous = gestionRdv.listerTousLesRendezVous();
         if (rendezVous.isEmpty()) {
-        	logger.info("Aucun rendez-vous enregistré.");
+            logger.info("Aucun rendez-vous enregistré.");
             return;
         }
         logger.info("=== LISTE DES RENDEZ-VOUS (" + rendezVous.size() + ") ===");
         for (RendezVous rdv : rendezVous) {
-        	logger.info("{}",rdv);
+            logger.info("{}", rdv);
         }
     }
 }
