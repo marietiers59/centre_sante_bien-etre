@@ -214,8 +214,9 @@ public class RendezVous {
    * @return le prix de la consultation à la charge du patient
    */
   public double prixConsultation() {
-    // TODO : calculer le prix de la consultation
-    return 0.0;
+    double coutBrut = (medecin.getTarifHoraire() * dureeMinutes) / 60.0;
+    double tauxRemboursement = patient.getTauxRemboursement();
+    return coutBrut * (1 - tauxRemboursement);
   }
 
   /**

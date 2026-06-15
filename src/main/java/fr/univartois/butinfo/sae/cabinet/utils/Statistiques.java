@@ -16,12 +16,31 @@ import org.slf4j.LoggerFactory;
  * Agrège des informations issues des différents services pour produire un tableau de bord.
  */
 public class Statistiques {
-
+	
+	
+	/**
+     * Logger pour suivre les activités de recherche et consigner les avertissements.
+     */
 	private static final Logger logger = LoggerFactory.getLogger(Statistiques.class);
+	/**
+     * Service de gestion des patients utilisé pour les statistiques.
+     */
     private final GestionPatients gestionPatients;
+    /**
+     * Service de gestion des medecins utilisé pour les statistiques.
+     */
     private final GestionMedecins gestionMedecins;
+    /**
+     * Service de gestion des medicaments utilisé pour les statistiques.
+     */
     private final GestionMedicaments gestionMedicaments;
+    /**
+     * Service de gestion des rendez vous utilisé pour les statistiques.
+     */
     private final GestionRendezVous gestionRendezVous;
+    /**
+     * Service de gestion des ordonnances utilisé pour les statistiques.
+     */
     private final GestionOrdonnances gestionOrdonnances;
 
     /**

@@ -2,11 +2,31 @@
 
 ## Description du projet et des fonctionnalités implémentées
 
-**À COMPLÉTER**
+L’objectif ici est de développer un système simple de gestion de dossiers médicaux pour un cabinet
+médical. Ce système permettra de gérer les informations des patients, des médecins et des rendez‑
+vous.  
+L’application complète devra comporter les fonctionnalités suivantes :  
+1. Gestion des patients : créer, lire, mettre à jour et supprimer les informations des patients.
+2. Gestion des médecins : enregistrer les médecins avec leurs spécialisations.
+3. Gestion des médicaments : créer et lister des médicaments.
+4. Gestion des rendez‑vous : prendre, annuler et lister les rendez‑vous entre patients et médecins.
+5. Gestion des ordonnances : permettre aux médecins de créer des ordonnances pour les patients,
+en enregistrant les informations sur les médicaments prescrits, la posologie et la durée du trai‑
+tement.
+6. Module de recherche : implémenter des fonctionnalités de recherche pour trouver des patients
+ou des médecins par nom, spécialité ou autre critère.
+7. Module de statistiques : afficher des statistiques (nombre de médecins, de patients, médica‑
+ments,…).
+
+L'IDE utilisé est Eclipse, notre moteur de production pour Java est Gradle.
 
 ## Membres du groupe
 
-**À COMPLÉTER**
+__Groupe SAE n° 23__
+Membres : 
+- ALOULI Ikram (groupe 1B1)
+- BILCKE Loan (groupe 1B1)
+- TIERS Marie (groupe 1B2)
 
 ## Répartition du travail
 
@@ -17,7 +37,12 @@
 | Marie TIERS      | Ajout des logger aux classes GestionRendezVous, Recherche et Statistiques    | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/12            |
 | Ikram ALOULI     | Ajout des logger aux classes GestionOrdonnances, GestionPatients    | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/11            |
 | Loan BILCKE      | Ajout des logger aux classes Main, GestionMedecins, GestionMedicaments       | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/10            |
-| ...              | ...                                          | ...            |
+| Marie TIERS             | Modification de Recherche.java et de Statistiques.java, puis des parties qui leur sont reliées dans Main.java                                           | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/2 et https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/3            |
+| Loan BILCKE              | Tests GestionMedecins, GestionRendezVous, LignePrescription                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/8 et https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/9           |
+| Ikram ALOULI              | Tests sur GestionMedicaments, test GestionOrdonnances, test GestionPatients                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/8 et https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/9            |
+| Ikram ALOULI              | ...                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/13            |
+| Loan BILCKE              | ...                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/13            |
+| Marie TIERS              | ...                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/13            |
 
 ## Présentation du code de base
 

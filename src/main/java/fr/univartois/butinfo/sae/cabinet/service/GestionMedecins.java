@@ -1,14 +1,21 @@
 package fr.univartois.butinfo.sae.cabinet.service;
 
+import fr.univartois.butinfo.sae.cabinet.Main;
 import fr.univartois.butinfo.sae.cabinet.enumeration.Specialite;
+
 import fr.univartois.butinfo.sae.cabinet.modele.Medecin;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Service de gestion des médecins du cabinet.
  */
 public class GestionMedecins {
+	
+	private static final Logger logger = LoggerFactory.getLogger(GestionMedecins.class.getSimpleName());
 
     private final List<Medecin> medecins;
 
@@ -28,11 +35,11 @@ public class GestionMedecins {
      */
     public void ajouterMedecin(Medecin medecin) {
         if (rechercherParNumeroOrdre(medecin.getNumeroOrdre()) != null) {
-            System.out.println("ERREUR : Un médecin avec ce numéro d'ordre existe déjà.");
+            logger.info("ERREUR : Un médecin avec ce numéro d'ordre existe déjà.");
             return;
         }
         medecins.add(medecin);
-        System.out.println("Médecin ajouté : Dr " + medecin.getNomComplet());
+        logger.info("Médecin ajouté : Dr " + medecin.getNomComplet());
     }
 
     /**
@@ -91,7 +98,7 @@ public class GestionMedecins {
                                        Specialite nouvelleSpecialite) {
         Medecin m = rechercherParId(id);
         if (m == null) {
-            System.out.println("ERREUR : Médecin ID=" + id + " introuvable.");
+            logger.error("ERREUR : Médecin ID=" + id + " introuvable.");
             return;
         }
         m.setNom(nouveauNom);
@@ -100,7 +107,7 @@ public class GestionMedecins {
         m.setTelephone(nouveauTel);
         m.setEmail(nouveauEmail);
         m.setSpecialite(nouvelleSpecialite);
-        System.out.println("Médecin mis à jour : Dr " + m.getNomComplet());
+        logger.info("Médecin mis à jour : Dr " + m.getNomComplet());
     }
 
     /**
@@ -109,11 +116,11 @@ public class GestionMedecins {
     public boolean supprimerMedecin(int id) {
         Medecin m = rechercherParId(id);
         if (m == null) {
-            System.out.println("ERREUR : Médecin ID=" + id + " introuvable.");
+            logger.error("ERREUR : Médecin ID=" + id + " introuvable.");
             return false;
         }
         medecins.remove(m);
-        System.out.println("Médecin supprimé : Dr " + m.getNomComplet());
+        logger.info("Médecin supprimé : Dr " + m.getNomComplet());
         return true;
     }
 
