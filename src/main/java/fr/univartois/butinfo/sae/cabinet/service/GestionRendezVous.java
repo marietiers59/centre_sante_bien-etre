@@ -1,5 +1,6 @@
 package fr.univartois.butinfo.sae.cabinet.service;
 
+import fr.univartois.butinfo.sae.cabinet.Main;
 import fr.univartois.butinfo.sae.cabinet.enumeration.StatutRendezVous;
 import fr.univartois.butinfo.sae.cabinet.modele.Medecin;
 import fr.univartois.butinfo.sae.cabinet.modele.Patient;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 public class GestionRendezVous {
 
 	private static final Logger logger = LoggerFactory.getLogger(GestionRendezVous.class);
+
     private final List<RendezVous> rendezVous;
 
     /**
