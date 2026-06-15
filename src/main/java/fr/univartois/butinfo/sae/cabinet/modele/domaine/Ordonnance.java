@@ -1,11 +1,16 @@
 package fr.univartois.butinfo.sae.cabinet.modele.domaine;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  * Classe représentant une ordonnance médicale. Une ordonnance est émise par un médecin pour un
  * patient et contient une liste de lignes de prescription.
+ * @version 1.0
  */
 public class Ordonnance {
 
@@ -24,8 +29,8 @@ public class Ordonnance {
   /** Date limite de validité de l'ordonnance. */
   private LocalDate dateValidite;
 
-  /** Liste des lignes de prescription de l'ordonnance. */
-  private final List<LignePrescription> prescriptions;
+  /** Liste des lignes de prescription de l'ordonnance (Observable pour l'IHM JavaFX). */
+  private final ObservableList<LignePrescription> prescriptions;
 
   /** Remarques ou instructions complémentaires du médecin. */
   private String remarques;
@@ -48,7 +53,8 @@ public class Ordonnance {
     this.patient = patient;
     this.dateEmission = LocalDate.now();
     this.dateValidite = dateValidite;
-    this.prescriptions = new ArrayList<>();
+    // CORRECTION : Utilisation de FXCollections pour initialiser l'ObservableList
+    this.prescriptions = FXCollections.observableArrayList();
     this.remarques = remarques;
   }
 
@@ -144,11 +150,22 @@ public class Ordonnance {
   }
 
   /**
-   * Retourne une copie défensive de la liste des prescriptions.
+   * Retourne l'ObservableList sous sa forme d'origine. 
+   * Utile pour la lier (binder) directement à un composant ListView de l'IHM.
    *
-   * @return la liste des lignes de prescription
+   * @return l'ObservableList des lignes de prescription
    */
-  public List<LignePrescription> getPrescriptions() {
+  public ObservableList<LignePrescription> getPrescriptions() {
+    return prescriptions;
+  }
+
+  /**
+   * Retourne une copie défensive de la liste sous forme de liste standard.
+   * Utile si une autre couche de l'application a absolument besoin d'une List classique immutable.
+   *
+   * @return une List standard contenant les lignes de prescription
+   */
+  public List<LignePrescription> getPrescriptionsAsList() {
     return new ArrayList<>(prescriptions);
   }
 
@@ -212,21 +229,20 @@ public class Ordonnance {
    * <p>
    * Le prix total de l'ordonnance est fonction :
    * <ul>
-   *   <li>du prix de chaque médicament prescrit</li>
-   *   <li>du taux de remboursement du patient.</li>
+   * <li>du prix de chaque médicament prescrit</li>
+   * <li>du taux de remboursement du patient.</li>
    * </ul>
    *
    * @return le prix total de l'ordonnance à la charge du patient
    */
   public double getPrixTotal() {
-	    double totalBrut = 0.0;
-
-	    for (int i = 0; i < prescriptions.size(); i++) {
-	        LignePrescription lp = prescriptions.get(i);
-	        totalBrut += lp.getMedicament().getPrix() * lp.getQuantite();
-	    }
-	    return totalBrut * (1 - patient.getTauxRemboursement());
-	}
+    double totalBrut = 0.0;
+    // Optimisation : Utilisation d'un foreach plus propre pour parcourir l'ObservableList
+    for (LignePrescription lp : prescriptions) {
+      totalBrut += lp.getMedicament().getPrix() * lp.getQuantite();
+    }
+    return totalBrut * (1.0 - patient.getTauxRemboursement());
+  }
   
   /**
    * Retourne une représentation textuelle détaillée de l'ordonnance.

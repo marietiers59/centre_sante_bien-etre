@@ -4,6 +4,8 @@ import fr.univartois.butinfo.sae.cabinet.Main;
 
 import fr.univartois.butinfo.sae.cabinet.enumeration.StatutRendezVous;
 import fr.univartois.butinfo.sae.cabinet.modele.domaine.RendezVous;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import fr.univartois.butinfo.sae.cabinet.modele.domaine.Patient;
 import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medecin;
 import java.time.LocalDateTime;
@@ -19,13 +21,14 @@ public class GestionRendezVous {
 
 	private static final Logger logger = LoggerFactory.getLogger(GestionRendezVous.class);
 
-    private final List<RendezVous> rendezVous;
+    private final ObservableList<RendezVous> rendezVous;
 
     /**
      * Constructeur : initialise la liste vide.
      */
     public GestionRendezVous() {
-        this.rendezVous = new ArrayList<>();
+        this.rendezVous = FXCollections.observableArrayList();
+        
     }
 
     // -------------------------
