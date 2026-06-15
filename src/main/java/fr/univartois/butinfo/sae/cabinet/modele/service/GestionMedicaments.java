@@ -1,7 +1,8 @@
-package fr.univartois.butinfo.sae.cabinet.service;
+package fr.univartois.butinfo.sae.cabinet.modele.service;
 
 import fr.univartois.butinfo.sae.cabinet.Main;
-import fr.univartois.butinfo.sae.cabinet.modele.Medicament;
+
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medicament;
 
 import java.util.ArrayList;
 import java.util.List;

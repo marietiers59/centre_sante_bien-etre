@@ -1,5 +1,4 @@
-package fr.univartois.butinfo.sae.cabinet.modele;
-
+package fr.univartois.butinfo.sae.cabinet.modele.domaine;
 /**
  * Classe représentant un médicament disponible dans le système.
  */
