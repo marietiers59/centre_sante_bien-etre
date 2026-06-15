@@ -1,10 +1,10 @@
 package fr.univartois.butinfo.sae.cabinet.utils;
 
 import fr.univartois.butinfo.sae.cabinet.enumeration.Specialite;
-import fr.univartois.butinfo.sae.cabinet.modele.Medecin;
-import fr.univartois.butinfo.sae.cabinet.modele.Patient;
-import fr.univartois.butinfo.sae.cabinet.service.GestionMedecins;
-import fr.univartois.butinfo.sae.cabinet.service.GestionPatients;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medecin;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Patient;
+import fr.univartois.butinfo.sae.cabinet.modele.service.GestionMedecins;
+import fr.univartois.butinfo.sae.cabinet.modele.service.GestionPatients;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,5 +1,4 @@
-package fr.univartois.butinfo.sae.cabinet.modele;
-
+package fr.univartois.butinfo.sae.cabinet.modele.domaine;
 /**
  * Représente une ligne de prescription dans une ordonnance.
  * Associe un médicament à sa posologie, sa quantité et sa durée de traitement.
