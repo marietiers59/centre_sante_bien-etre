@@ -18,6 +18,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Classe principale de démonstration du système de gestion de cabinet médical.
  * Exécutez cette classe pour tester toutes les fonctionnalités.

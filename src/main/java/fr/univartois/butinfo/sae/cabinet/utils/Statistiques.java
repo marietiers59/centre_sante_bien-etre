@@ -8,6 +8,7 @@ import fr.univartois.butinfo.sae.cabinet.service.GestionMedicaments;
 import fr.univartois.butinfo.sae.cabinet.service.GestionOrdonnances;
 import fr.univartois.butinfo.sae.cabinet.service.GestionPatients;
 import fr.univartois.butinfo.sae.cabinet.service.GestionRendezVous;
+import org.slf4j.Logger;
 
 /**
  * Module de statistiques du cabinet médical.
@@ -15,6 +16,7 @@ import fr.univartois.butinfo.sae.cabinet.service.GestionRendezVous;
  */
 public class Statistiques {
 
+	Logger logger;
     private final GestionPatients gestionPatients;
     private final GestionMedecins gestionMedecins;
     private final GestionMedicaments gestionMedicaments;
