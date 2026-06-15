@@ -27,12 +27,13 @@ import org.slf4j.LoggerFactory;
  */
 public class Main {
 
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
 
-        System.out.println("╔═══════════════════════════════════════════╗");
-        System.out.println("║   SYSTÈME DE GESTION DE CABINET MÉDICAL   ║");
-        System.out.println("╚═══════════════════════════════════════════╝\n");
+        logger.info("╔═══════════════════════════════════════════╗");
+        logger.info("║   SYSTEME DE GESTION DE CABINET MEDICAL   ║");
+        logger.info("╚═══════════════════════════════════════════╝\n");
 
         // ============================================================
         // 1. Initialisation des services
@@ -136,31 +137,43 @@ public class Main {
         // ============================================================
         // 7. Module de recherche
         // ============================================================
-        System.out.println("\n=== MODULE DE RECHERCHE ===");
+        logger.info("\n=== MODULE DE RECHERCHE ===");
 
-        System.out.println("\n>> Recherche patient par nom 'leblanc':");
-        recherche.rechercherPatientParNom("leblanc");
+        logger.info(">> Recherche patient par nom 'leblanc':");
+        List<Patient> patientsParNom = recherche.rechercherPatientParNom("leblanc");
+        for (Patient p : patientsParNom) {
+            logger.info("  {}", p);
+        }
 
-        System.out.println("\n>> Recherche médecin par spécialité CARDIOLOGUE:");
-        recherche.rechercherMedecinParSpecialite(Specialite.CARDIOLOGUE);
+        logger.info(">> Recherche medecin par specialite CARDIOLOGUE:");
+        List<Medecin> cardiologues = recherche.rechercherMedecinParSpecialite(Specialite.CARDIOLOGUE);
+        for (Medecin m : cardiologues) {
+            logger.info("  {}", m);
+        }
 
-        System.out.println("\n>> Recherche médecin par nom 'martin':");
-        recherche.rechercherMedecinParNom("martin");
+        logger.info(">> Recherche medecin par nom 'martin':");
+        List<Medecin> medecinsParNom = recherche.rechercherMedecinParNom("martin");
+        for (Medecin m : medecinsParNom) {
+            logger.info("  {}", m);
+        }
 
-        System.out.println("\n>> Recherche patient par n° sécu:");
-        recherche.rechercherPatientParSecu("185036562012345");
+        logger.info(">> Recherche patient par numero secu:");
+        Patient patientSecu = recherche.rechercherPatientParSecu("185036562012345");
+        if (patientSecu != null) {
+            logger.info("  {}", patientSecu);
+        }
 
         // ============================================================
         // 8. Module de statistiques
         // ============================================================
-        System.out.println("\n=== MODULE DE STATISTIQUES ===");
-        stats.afficherTableauDeBord();
+        logger.info("\n=== MODULE DE STATISTIQUES ===");
+        logger.info(stats.getStatistiques());
 
         Medecin actif = stats.getMedecinLePlusActif();
         if (actif != null) {
-            System.out.println("Médecin le plus actif : Dr " + actif.getNomComplet());
+            logger.info("Medecin le plus actif : Dr {}", actif.getNomComplet());
         } else {
-            System.out.println("Aucun médecin actif trouvé.");
+            logger.info("Aucun medecin actif trouve.");
         }
 
         // ============================================================
