@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import fr.univartois.butinfo.sae.cabinet.modele.domaine.Patient;
 import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medecin;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -153,6 +154,22 @@ public class GestionRendezVous {
             }
         }
         return true;
+    }
+
+    /**
+     * Retourne tous les rendez-vous dont la date correspond au jour donné.
+     *
+     * @param date le jour à filtrer
+     * @return la liste des rendez-vous de ce jour, dans l'ordre de la liste interne
+     */
+    public List<RendezVous> getRendezVousParDate(LocalDate date) {
+        List<RendezVous> resultats = new ArrayList<>();
+        for (RendezVous rdv : rendezVous) {
+            if (rdv.getDateHeure().toLocalDate().equals(date)) {
+                resultats.add(rdv);
+            }
+        }
+        return resultats;
     }
 
     /**
