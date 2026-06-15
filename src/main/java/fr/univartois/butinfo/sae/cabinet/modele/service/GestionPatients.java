@@ -1,32 +1,20 @@
 package fr.univartois.butinfo.sae.cabinet.modele.service;
 
 import fr.univartois.butinfo.sae.cabinet.modele.domaine.Patient;
-import java.util.ArrayList;
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
- * Service de gestion des patients.
- * Fournit les opérations CRUD (Créer, Lire, Mettre à jour, Supprimer).
+ * Façade permettant de gérer les patients.
  */
 public class GestionPatients {
 
-    // Liste interne des patients enregistrés
-    private final List<Patient> patients;
+    private final ObservableList<Patient> patients;
 
-    /**
-     * Constructeur : initialise la liste vide.
-     */
     public GestionPatients() {
-        this.patients = new ArrayList<>();
+        this.patients = FXCollections.observableArrayList();
     }
 
-    // -------------------------
-    // CRUD
-    // -------------------------
-
-    /**
-     * Ajoute un patient si son numéro de sécu n'existe pas déjà.
-     */
     public void ajouterPatient(Patient patient) {
         if (rechercherParNumeroSecu(patient.getNumeroSecu()) != null) {
             System.out.println("ERREUR : Un patient avec ce numéro de sécu existe déjà.");
@@ -36,87 +24,81 @@ public class GestionPatients {
         System.out.println("Patient ajouté : " + patient.getNomComplet());
     }
 
-    /**
-     * Retourne un patient par son ID, ou null si introuvable.
-     */
     public Patient rechercherParId(int id) {
         for (Patient p : patients) {
-            if (p.getId() == id) return p;
+            if (p.getId() == id) {
+                return p;
+            }
         }
         return null;
     }
 
-    /**
-     * Retourne un patient par son numéro de sécurité sociale.
-     */
     public Patient rechercherParNumeroSecu(String numeroSecu) {
         for (Patient p : patients) {
-            if (p.getNumeroSecu().equalsIgnoreCase(numeroSecu)) return p;
+            if (p.getNumeroSecu().equalsIgnoreCase(numeroSecu)) {
+                return p;
+            }
         }
         return null;
     }
 
-    /**
-     * Recherche des patients dont le nom ou prénom contient le terme donné (insensible à la casse).
-     */
-    public List<Patient> rechercherParNom(String terme) {
-        List<Patient> resultats = new ArrayList<>();
+    public ObservableList<Patient> rechercherParNom(String terme) {
+        ObservableList<Patient> resultats = FXCollections.observableArrayList();
         String termeLower = terme.toLowerCase();
+
         for (Patient p : patients) {
-            if (p.getNom().toLowerCase().contains(termeLower) ||
-                p.getPrenom().toLowerCase().contains(termeLower)) {
+            if (p.getNom().toLowerCase().contains(termeLower)
+                    || p.getPrenom().toLowerCase().contains(termeLower)) {
                 resultats.add(p);
             }
         }
+
         return resultats;
     }
 
-    /**
-     * Met à jour les informations d'un patient (sauf ID et numéro de sécu).
-     */
     public void mettreAJourPatient(int id, String nouveauNom, String nouveauPrenom,
-                                       String nouveauTel, String nouveauEmail,
-                                       String nouvelleAdresse, double nouveauTauxRemboursement) {
+            String nouveauTel, String nouveauEmail,
+            String nouvelleAdresse, double nouveauTauxRemboursement) {
+
         Patient p = rechercherParId(id);
+
         if (p == null) {
             System.out.println("ERREUR : Patient ID=" + id + " introuvable.");
             return;
         }
+
         p.setNom(nouveauNom);
         p.setPrenom(nouveauPrenom);
         p.setTelephone(nouveauTel);
         p.setEmail(nouveauEmail);
         p.setAdresse(nouvelleAdresse);
         p.setTauxRemboursement(nouveauTauxRemboursement);
+
         System.out.println("Patient mis à jour : " + p.getNomComplet());
     }
 
-    /**
-     * Supprime un patient par son ID.
-     */
     public void supprimerPatient(int id) {
         Patient p = rechercherParId(id);
+
         if (p == null) {
             System.out.println("ERREUR : Patient ID=" + id + " introuvable.");
             return;
         }
+
         patients.remove(p);
         System.out.println("Patient supprimé : " + p.getNomComplet());
     }
 
-    /**
-     * Retourne la liste complète des patients (copie défensive).
-     */
-    public List<Patient> listerTousLesPatients() {
-        return new ArrayList<>(patients);
+    public ObservableList<Patient> listerTousLesPatients() {
+        return patients;
     }
 
-    /**
-     * Retourne le nombre total de patients.
-     */
+    public ObservableList<Patient> getPatients() {
+        return patients;
+    }
+
     public int getNombrePatients() {
         return patients.size();
     }
-
 
 }
