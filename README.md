@@ -14,9 +14,9 @@
 
 | Membre du groupe | Tâches réalisées                             | Ticket associé |
 |------------------|----------------------------------------------|----------------|
-| ...              | ...                                          | ...            |
-| ...              | ...                                          | ...            |
-| ...              | ...                                          | ...            |
+| Marie TIERS      | Ajout des logger aux classes GestionRendezVous, Recherche et Statistiques    | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/12            |
+| Ikram ALOULI     | Ajout des logger aux classes GestionOrdonnances, GestionPatients    | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/11            |
+| Loan BILCKE      | Ajout des logger aux classes Main, GestionMedecins, GestionMedicaments       | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/10            |
 | ...              | ...                                          | ...            |
 
 ## Présentation du code de base
