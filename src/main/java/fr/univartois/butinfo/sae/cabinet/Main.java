@@ -24,7 +24,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Classe principale de démonstration du système de gestion de cabinet médical.
  * Exécutez cette classe pour tester toutes les fonctionnalités.
@@ -38,6 +37,7 @@ public class Main {
     	logger.info("╔═══════════════════════════════════════════╗");
     	logger.info("║   SYSTÈME DE GESTION DE CABINET MÉDICAL   ║");
     	logger.info("╚═══════════════════════════════════════════╝\n");
+
 
         // ============================================================
         // 1. Initialisation des services
@@ -143,29 +143,43 @@ public class Main {
         // ============================================================
         logger.info("\n=== MODULE DE RECHERCHE ===");
 
-        logger.info("\n>> Recherche patient par nom 'leblanc':");
-        recherche.rechercherPatientParNom("leblanc");
 
-        logger.info("\n>> Recherche médecin par spécialité CARDIOLOGUE:");
-        recherche.rechercherMedecinParSpecialite(Specialite.CARDIOLOGUE);
+        logger.info(">> Recherche patient par nom 'leblanc':");
+        List<Patient> patientsParNom = recherche.rechercherPatientParNom("leblanc");
+        for (Patient p : patientsParNom) {
+            logger.info("  {}", p);
+        }
 
-        logger.info("\n>> Recherche médecin par nom 'martin':");
-        recherche.rechercherMedecinParNom("martin");
+        logger.info(">> Recherche medecin par specialite CARDIOLOGUE:");
+        List<Medecin> cardiologues = recherche.rechercherMedecinParSpecialite(Specialite.CARDIOLOGUE);
+        for (Medecin m : cardiologues) {
+            logger.info("  {}", m);
+        }
 
-        logger.info("\n>> Recherche patient par n° sécu:");
-        recherche.rechercherPatientParSecu("185036562012345");
+        logger.info(">> Recherche medecin par nom 'martin':");
+        List<Medecin> medecinsParNom = recherche.rechercherMedecinParNom("martin");
+        for (Medecin m : medecinsParNom) {
+            logger.info("  {}", m);
+        }
 
+        logger.info(">> Recherche patient par numero secu:");
+        Patient patientSecu = recherche.rechercherPatientParSecu("185036562012345");
+        if (patientSecu != null) {
+            logger.info("  {}", patientSecu);
+        }
         // ============================================================
         // 8. Module de statistiques
         // ============================================================
         logger.info("\n=== MODULE DE STATISTIQUES ===");
-        stats.afficherTableauDeBord();
+
+        logger.info(stats.getStatistiques());
 
         Medecin actif = stats.getMedecinLePlusActif();
         if (actif != null) {
-        	logger.info("Médecin le plus actif : Dr " + actif.getNomComplet());
+            logger.info("Medecin le plus actif : Dr {}", actif.getNomComplet());
         } else {
-        	logger.info("Aucun médecin actif trouvé.");
+            logger.info("Aucun medecin actif trouve.");
+
         }
 
         // ============================================================

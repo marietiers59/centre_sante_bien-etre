@@ -8,6 +8,8 @@ import fr.univartois.butinfo.sae.cabinet.service.GestionMedicaments;
 import fr.univartois.butinfo.sae.cabinet.service.GestionOrdonnances;
 import fr.univartois.butinfo.sae.cabinet.service.GestionPatients;
 import fr.univartois.butinfo.sae.cabinet.service.GestionRendezVous;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Module de statistiques du cabinet médical.
@@ -15,6 +17,7 @@ import fr.univartois.butinfo.sae.cabinet.service.GestionRendezVous;
  */
 public class Statistiques {
 
+	private static final Logger logger = LoggerFactory.getLogger(Statistiques.class);
     private final GestionPatients gestionPatients;
     private final GestionMedecins gestionMedecins;
     private final GestionMedicaments gestionMedicaments;
@@ -37,52 +40,53 @@ public class Statistiques {
     }
 
     /**
-     * Affiche un résumé complet des statistiques du cabinet.
+     * Retourne un résumé complet des statistiques du cabinet sous forme de chaîne.
+     *
+     * @return les statistiques formatées
      */
-    public void afficherTableauDeBord() {
-        System.out.println("\n╔══════════════════════════════════════════╗");
-        System.out.println("║        TABLEAU DE BORD - CABINET MÉDICAL  ║");
-        System.out.println("╚══════════════════════════════════════════╝");
+    public String getStatistiques() {
+        StringBuilder sb = new StringBuilder();
 
-        // -- Chiffres globaux --
-        System.out.println("\n📋 CHIFFRES GLOBAUX :");
-        System.out.println("  • Patients enregistrés   : " + gestionPatients.getNombrePatients());
-        System.out.println("  • Médecins enregistrés   : " + gestionMedecins.getNombreMedecins());
-        System.out.println("  • Médicaments référencés : " + gestionMedicaments.getNombreMedicaments());
-        System.out.println("  • Rendez-vous total      : " + gestionRendezVous.getNombreRendezVous());
-        System.out.println("  • Ordonnances émises     : " + gestionOrdonnances.getNombreOrdonnances());
+        sb.append("\n╔══════════════════════════════════════════╗\n");
+        sb.append("║        TABLEAU DE BORD - CABINET MÉDICAL  ║\n");
+        sb.append("╚══════════════════════════════════════════╝\n");
 
-        // -- Détail des rendez-vous par statut --
-        System.out.println("\n📅 RENDEZ-VOUS PAR STATUT :");
+        sb.append("\nCHIFFRES GLOBAUX :\n");
+        sb.append("  • Patients enregistrés   : ").append(gestionPatients.getNombrePatients()).append("\n");
+        sb.append("  • Medecins enregistrés   : ").append(gestionMedecins.getNombreMedecins()).append("\n");
+        sb.append("  • Medicaments référencés : ").append(gestionMedicaments.getNombreMedicaments()).append("\n");
+        sb.append("  • Rendez-vous total      : ").append(gestionRendezVous.getNombreRendezVous()).append("\n");
+        sb.append("  • Ordonnances émises     : ").append(gestionOrdonnances.getNombreOrdonnances()).append("\n");
+
+        sb.append("\nRENDEZ-VOUS PAR STATUT :\n");
         for (StatutRendezVous statut : StatutRendezVous.values()) {
             int nb = gestionRendezVous.getRendezVousParStatut(statut).size();
-            System.out.println("  • " + statut.getLibelle() + " : " + nb);
+            sb.append("  • ").append(statut.getLibelle()).append(" : ").append(nb).append("\n");
         }
 
-        // -- Médecins par spécialité --
-        System.out.println("\n🩺 MÉDECINS PAR SPÉCIALITÉ :");
+        sb.append("\nMEDECINS PAR SPECIALITE :\n");
         for (Specialite sp : Specialite.values()) {
             int nb = gestionMedecins.rechercherParSpecialite(sp).size();
             if (nb > 0) {
-                System.out.println("  • " + sp.getLibelle() + " : " + nb);
+                sb.append("  • ").append(sp.getLibelle()).append(" : ").append(nb).append("\n");
             }
         }
 
-        // -- Top médecins (par nombre de RDV) --
-        System.out.println("\n🏆 MÉDECINS PAR NOMBRE DE RENDEZ-VOUS :");
+        sb.append("\nMEDECINS PAR NOMBRE DE RENDEZ-VOUS :\n");
         for (Medecin m : gestionMedecins.listerTousLesMedecins()) {
             int nbRdv = gestionRendezVous.getRendezVousMedecin(m).size();
             int nbOrdo = gestionOrdonnances.getOrdonnancesMedecin(m).size();
-            System.out.println("  • Dr " + m.getNomComplet() +
-                               " (" + m.getSpecialite().getLibelle() + ")" +
-                               " → " + nbRdv + " RDV, " + nbOrdo + " ordonnances");
+            sb.append("  • Dr ").append(m.getNomComplet())
+              .append(" (").append(m.getSpecialite().getLibelle()).append(")")
+              .append(" -> ").append(nbRdv).append(" RDV, ").append(nbOrdo).append(" ordonnances\n");
         }
 
-        // -- Ordonnances valides --
-        System.out.println("\n💊 ORDONNANCES VALIDES (en cours) : " +
-                           gestionOrdonnances.getOrdonnancesValides().size());
+        sb.append("\nORDONNANCES VALIDES (en cours) : ")
+          .append(gestionOrdonnances.getOrdonnancesValides().size()).append("\n");
 
-        System.out.println("\n══════════════════════════════════════════════\n");
+        sb.append("══════════════════════════════════════════════\n");
+
+        return sb.toString();
     }
 
     // -------------------------
