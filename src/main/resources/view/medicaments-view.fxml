@@ -27,7 +27,8 @@
             </VBox>
             <HBox alignment="BOTTOM_LEFT" prefHeight="50.0" prefWidth="417.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                <children>
-                  <Button fx:id="ajouter" mnemonicParsing="false" text="Ajouter" />
+                  <Button fx:id="ajouter" mnemonicParsing="false" onAction="#ajouterMedicament" text="Ajouter" />
+                  <Button fx:id="supprimer" mnemonicParsing="false" onAction="#supprimerMedicament" text="Supprimer" />
                </children>
             </HBox>
          </children></AnchorPane>
