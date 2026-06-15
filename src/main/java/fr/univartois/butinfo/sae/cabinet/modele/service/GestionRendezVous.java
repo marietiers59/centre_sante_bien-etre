@@ -10,9 +10,6 @@ import javafx.collections.ObservableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Façade permettant de gérer les rendez-vous médicaux.
- */
 public class GestionRendezVous {
 
     private static final Logger logger = LoggerFactory.getLogger(GestionRendezVous.class);
@@ -25,7 +22,6 @@ public class GestionRendezVous {
 
     public RendezVous prendreRendezVous(Patient patient, Medecin medecin,
             LocalDateTime dateHeure, int dureeMinutes, String motif) {
-
         if (!estDisponible(medecin, dateHeure)) {
             logger.info("ERREUR : Le Dr " + medecin.getNomComplet()
                     + " n'est pas disponible à ce créneau.");
@@ -34,45 +30,33 @@ public class GestionRendezVous {
 
         RendezVous rdv = new RendezVous(patient, medecin, dateHeure, dureeMinutes, motif);
         rendezVous.add(rdv);
-
-        logger.info("Rendez-vous créé : " + rdv);
         return rdv;
     }
 
     public void annulerRendezVous(int id) {
         RendezVous rdv = rechercherParId(id);
 
-        if (rdv == null) {
-            logger.info("ERREUR : Rendez-vous ID=" + id + " introuvable.");
-            return;
+        if (rdv != null) {
+            rdv.annuler();
         }
-
-        rdv.annuler();
-        logger.info("Rendez-vous annulé : ID=" + id);
     }
 
     public void confirmerRendezVous(int id) {
         RendezVous rdv = rechercherParId(id);
 
-        if (rdv == null) {
-            logger.info("ERREUR : Rendez-vous ID=" + id + " introuvable.");
-            return;
+        if (rdv != null) {
+            rdv.confirmer();
         }
-
-        rdv.confirmer();
-        logger.info("Rendez-vous confirmé : ID=" + id);
     }
 
     public boolean terminerRendezVous(int id) {
         RendezVous rdv = rechercherParId(id);
 
         if (rdv == null) {
-            logger.info("ERREUR : Rendez-vous ID=" + id + " introuvable.");
             return false;
         }
 
         rdv.terminer();
-        logger.info("Rendez-vous terminé : ID=" + id);
         return true;
     }
 
@@ -143,5 +127,4 @@ public class GestionRendezVous {
     public int getNombreRendezVous() {
         return rendezVous.size();
     }
-
 }
