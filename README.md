@@ -38,9 +38,12 @@ Membres :
 | Marie TIERS             | Modification de Recherche.java et de Statistiques.java, puis des parties qui leur sont reliées dans Main.java                                           | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/2 et https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/3            |
 | Loan BILCKE              | Tests GestionMedecins, GestionRendezVous, LignePrescription                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/8 et https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/9           |
 | Ikram ALOULI              | Tests sur GestionMedicaments, test GestionOrdonnances, test GestionPatients                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/8 et https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/9            |
-| Ikram ALOULI              | ...                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/13            |
-| Loan BILCKE              | ...                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/13            |
-| Marie TIERS              | ...                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/13            |
+| Ikram ALOULI              | Documentation service                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/17            |
+| Loan BILCKE              | Documentation cabinet, enumeration et utils                                         | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/15           |
+| Marie TIERS              | Documentation modele                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/16            |
+| Ikram ALOULI             | Vue de gestion médecins                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/14            |
+| Loan BILCKE             | Vue de gestion médicaments                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/14            |
+| Marie TIERS              | Vue de gestion rendez-vous                                           | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/14            |
 
 ## Présentation du code de base
 
