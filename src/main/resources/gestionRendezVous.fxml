@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView accessibleText="Logo de L'Eveil des Sens" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <Label alignment="CENTER" text="Gestion des rendez-vous">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <SplitPane dividerPositions="0.23143904674610452" prefHeight="256.0" prefWidth="730.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="253.0" prefWidth="165.0">
+               <children>
+                  <DatePicker fx:id="datePicker" layoutX="19.0" layoutY="99.0" prefHeight="27.0" prefWidth="125.0" />
+                  <ColorPicker fx:id="colorPicker" layoutX="19.0" layoutY="148.0" prefHeight="27.0" prefWidth="125.0" />
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="ficheRDV" minHeight="0.0" minWidth="0.0" prefHeight="252.0" prefWidth="500.0">
+               <children>
+                  <ListView layoutX="14.0" layoutY="14.0" prefHeight="225.0" prefWidth="531.0" />
+                  <Label layoutX="14.0" layoutY="14.0" text="Patient">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="16.0" layoutY="62.0" text="Nom patient" />
+                  <Label layoutX="16.0" layoutY="81.0" text="Prénom patient" />
+                  <Label layoutX="15.0" layoutY="100.0" text="Date de naissance patient" />
+                  <Label layoutX="16.0" layoutY="43.0" text="Identifiant patient" />
+                  <Label layoutX="310.0" layoutY="14.0" text="Médecin">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="310.0" layoutY="41.0" text="Identifiant médecin" />
+                  <Label layoutX="310.0" layoutY="60.0" text="Nom médecin" />
+                  <Label layoutX="310.0" layoutY="79.0" text="Prénom médecin" />
+                  <Label layoutX="310.0" layoutY="98.0" prefHeight="19.0" prefWidth="189.0" text="Spécialité médecin" />
+                  <Label fx:id="idPatient" layoutX="174.0" layoutY="43.0" text="Label" />
+                  <Label fx:id="nomPatient" layoutX="174.0" layoutY="62.0" text="Label" />
+                  <Label fx:id="prenomPatient" layoutX="174.0" layoutY="81.0" text="Label" />
+                  <Label fx:id="ddnPatient" layoutX="174.0" layoutY="100.0" text="Label" />
+                  <Label fx:id="idMedecin" layoutX="427.0" layoutY="41.0" text="Label" />
+                  <Label fx:id="nomMedecin" layoutX="427.0" layoutY="60.0" text="Label" />
+                  <Label fx:id="prenomMedecin" layoutX="427.0" layoutY="79.0" text="Label" />
+                  <Label fx:id="speMedecin" layoutX="427.0" layoutY="98.0" text="Label" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</VBox>
