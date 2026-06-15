@@ -19,7 +19,7 @@
 
     <Loggers>
 
-        <Logger name="fr.iutlens.qdev.app" level="debug" additivity="true">
+        <Logger name="fr.univartois.butinfo.sae.cabinet" level="debug" additivity="true">
             <AppenderRef ref="LOGFILE"/>
         </Logger>
 

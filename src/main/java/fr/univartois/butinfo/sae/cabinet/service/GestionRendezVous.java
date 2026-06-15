@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  */
 public class GestionRendezVous {
 
-	Logger logger;
+	private static final Logger logger = LoggerFactory.getLogger(GestionRendezVous.class);
     private final List<RendezVous> rendezVous;
 
     /**
