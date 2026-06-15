@@ -9,6 +9,7 @@ import fr.univartois.butinfo.sae.cabinet.service.GestionOrdonnances;
 import fr.univartois.butinfo.sae.cabinet.service.GestionPatients;
 import fr.univartois.butinfo.sae.cabinet.service.GestionRendezVous;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Module de statistiques du cabinet médical.
@@ -42,49 +43,49 @@ public class Statistiques {
      * Affiche un résumé complet des statistiques du cabinet.
      */
     public void afficherTableauDeBord() {
-        System.out.println("\n╔══════════════════════════════════════════╗");
-        System.out.println("║        TABLEAU DE BORD - CABINET MÉDICAL  ║");
-        System.out.println("╚══════════════════════════════════════════╝");
+        logger.info("\n╔══════════════════════════════════════════╗");
+        logger.info("║        TABLEAU DE BORD - CABINET MÉDICAL  ║");
+        logger.info("╚══════════════════════════════════════════╝");
 
         // -- Chiffres globaux --
-        System.out.println("\n📋 CHIFFRES GLOBAUX :");
-        System.out.println("  • Patients enregistrés   : " + gestionPatients.getNombrePatients());
-        System.out.println("  • Médecins enregistrés   : " + gestionMedecins.getNombreMedecins());
-        System.out.println("  • Médicaments référencés : " + gestionMedicaments.getNombreMedicaments());
-        System.out.println("  • Rendez-vous total      : " + gestionRendezVous.getNombreRendezVous());
-        System.out.println("  • Ordonnances émises     : " + gestionOrdonnances.getNombreOrdonnances());
+        logger.info("\n📋 CHIFFRES GLOBAUX :");
+        logger.info("  • Patients enregistrés   : " + gestionPatients.getNombrePatients());
+        logger.info("  • Médecins enregistrés   : " + gestionMedecins.getNombreMedecins());
+        logger.info("  • Médicaments référencés : " + gestionMedicaments.getNombreMedicaments());
+        logger.info("  • Rendez-vous total      : " + gestionRendezVous.getNombreRendezVous());
+        logger.info("  • Ordonnances émises     : " + gestionOrdonnances.getNombreOrdonnances());
 
         // -- Détail des rendez-vous par statut --
-        System.out.println("\n📅 RENDEZ-VOUS PAR STATUT :");
+        logger.info("\n📅 RENDEZ-VOUS PAR STATUT :");
         for (StatutRendezVous statut : StatutRendezVous.values()) {
             int nb = gestionRendezVous.getRendezVousParStatut(statut).size();
-            System.out.println("  • " + statut.getLibelle() + " : " + nb);
+            logger.info("  • " + statut.getLibelle() + " : " + nb);
         }
 
         // -- Médecins par spécialité --
-        System.out.println("\n🩺 MÉDECINS PAR SPÉCIALITÉ :");
+        logger.info("\n🩺 MÉDECINS PAR SPÉCIALITÉ :");
         for (Specialite sp : Specialite.values()) {
             int nb = gestionMedecins.rechercherParSpecialite(sp).size();
             if (nb > 0) {
-                System.out.println("  • " + sp.getLibelle() + " : " + nb);
+                logger.info("  • " + sp.getLibelle() + " : " + nb);
             }
         }
 
         // -- Top médecins (par nombre de RDV) --
-        System.out.println("\n🏆 MÉDECINS PAR NOMBRE DE RENDEZ-VOUS :");
+        logger.info("\n🏆 MÉDECINS PAR NOMBRE DE RENDEZ-VOUS :");
         for (Medecin m : gestionMedecins.listerTousLesMedecins()) {
             int nbRdv = gestionRendezVous.getRendezVousMedecin(m).size();
             int nbOrdo = gestionOrdonnances.getOrdonnancesMedecin(m).size();
-            System.out.println("  • Dr " + m.getNomComplet() +
+            logger.info("  • Dr " + m.getNomComplet() +
                                " (" + m.getSpecialite().getLibelle() + ")" +
                                " → " + nbRdv + " RDV, " + nbOrdo + " ordonnances");
         }
 
         // -- Ordonnances valides --
-        System.out.println("\n💊 ORDONNANCES VALIDES (en cours) : " +
+        logger.info("\n💊 ORDONNANCES VALIDES (en cours) : " +
                            gestionOrdonnances.getOrdonnancesValides().size());
 
-        System.out.println("\n══════════════════════════════════════════════\n");
+        logger.info("\n══════════════════════════════════════════════\n");
     }
 
     // -------------------------

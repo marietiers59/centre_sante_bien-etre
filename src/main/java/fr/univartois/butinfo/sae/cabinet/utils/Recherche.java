@@ -6,6 +6,8 @@ import fr.univartois.butinfo.sae.cabinet.modele.Patient;
 import fr.univartois.butinfo.sae.cabinet.service.GestionMedecins;
 import fr.univartois.butinfo.sae.cabinet.service.GestionPatients;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Module de recherche transversale pour patients et médecins.
@@ -43,9 +45,9 @@ public class Recherche {
     public Patient rechercherPatientParSecu(String numeroSecu) {
         Patient p = gestionPatients.rechercherParNumeroSecu(numeroSecu);
         if (p != null) {
-            System.out.println("Patient trouvé : " + p);
+            logger.infoln("Patient trouvé : " + p);
         } else {
-            System.out.println("Aucun patient trouvé pour le numéro de sécu : " + numeroSecu);
+            logger.infoln("Aucun patient trouvé pour le numéro de sécu : " + numeroSecu);
         }
         return p;
     }
@@ -79,9 +81,9 @@ public class Recherche {
     public Medecin rechercherMedecinParOrdre(String numeroOrdre) {
         Medecin m = gestionMedecins.rechercherParNumeroOrdre(numeroOrdre);
         if (m != null) {
-            System.out.println("Médecin trouvé : " + m);
+            logger.infoln("Médecin trouvé : " + m);
         } else {
-            System.out.println("Aucun médecin trouvé pour le n° d'ordre : " + numeroOrdre);
+            logger.infoln("Aucun médecin trouvé pour le n° d'ordre : " + numeroOrdre);
         }
         return m;
     }
@@ -91,20 +93,20 @@ public class Recherche {
     // -------------------------
 
     private void afficherResultatsPatients(List<Patient> liste, String titre) {
-        System.out.println("--- " + titre + " (" + liste.size() + " résultat(s)) ---");
+        logger.infoln("--- " + titre + " (" + liste.size() + " résultat(s)) ---");
         if (liste.isEmpty()) {
-            System.out.println("  Aucun résultat.");
+            logger.infoln("  Aucun résultat.");
         } else {
-            for (Patient p : liste) System.out.println("  " + p);
+            for (Patient p : liste) logger.infoln("  " + p);
         }
     }
 
     private void afficherResultatsMedecins(List<Medecin> liste, String titre) {
-        System.out.println("--- " + titre + " (" + liste.size() + " résultat(s)) ---");
+        logger.infoln("--- " + titre + " (" + liste.size() + " résultat(s)) ---");
         if (liste.isEmpty()) {
-            System.out.println("  Aucun résultat.");
+            logger.infoln("  Aucun résultat.");
         } else {
-            for (Medecin m : liste) System.out.println("  " + m);
+            for (Medecin m : liste) logger.infoln("  " + m);
         }
     }
 
