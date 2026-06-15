@@ -9,18 +9,18 @@ import org.junit.jupiter.api.Test;
 
 class GestionPatientsTest {
 
-  private Patient creerPatient() {
-    return new Patient(
-        "Martin",
-        "Paul",
-        "0606060606",
-        "paul@mail.fr",
-        "1234567890123",
-        LocalDate.of(2000, 1, 1),
-        "Adresse test",
-        0.70
-    );
-  }
+	private Patient creerPatient() {
+		  return new Patient(
+		      "Martin",
+		      "Paul",
+		      "0606060606",
+		      "paul@mail.fr",
+		      "Adresse test",
+		      LocalDate.of(2000, 1, 1),
+		      "1234567890123",
+		      0.70
+		  );
+		}
 
   @Test
   void testAjouterPatient() {
