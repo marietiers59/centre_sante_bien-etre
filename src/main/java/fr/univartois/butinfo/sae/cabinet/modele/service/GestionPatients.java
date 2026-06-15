@@ -4,9 +4,6 @@ import fr.univartois.butinfo.sae.cabinet.modele.domaine.Patient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
- * Façade permettant de gérer les patients.
- */
 public class GestionPatients {
 
     private final ObservableList<Patient> patients;
@@ -17,11 +14,9 @@ public class GestionPatients {
 
     public void ajouterPatient(Patient patient) {
         if (rechercherParNumeroSecu(patient.getNumeroSecu()) != null) {
-            System.out.println("ERREUR : Un patient avec ce numéro de sécu existe déjà.");
             return;
         }
         patients.add(patient);
-        System.out.println("Patient ajouté : " + patient.getNomComplet());
     }
 
     public Patient rechercherParId(int id) {
@@ -59,11 +54,9 @@ public class GestionPatients {
     public void mettreAJourPatient(int id, String nouveauNom, String nouveauPrenom,
             String nouveauTel, String nouveauEmail,
             String nouvelleAdresse, double nouveauTauxRemboursement) {
-
         Patient p = rechercherParId(id);
 
         if (p == null) {
-            System.out.println("ERREUR : Patient ID=" + id + " introuvable.");
             return;
         }
 
@@ -73,20 +66,14 @@ public class GestionPatients {
         p.setEmail(nouveauEmail);
         p.setAdresse(nouvelleAdresse);
         p.setTauxRemboursement(nouveauTauxRemboursement);
-
-        System.out.println("Patient mis à jour : " + p.getNomComplet());
     }
 
     public void supprimerPatient(int id) {
         Patient p = rechercherParId(id);
 
-        if (p == null) {
-            System.out.println("ERREUR : Patient ID=" + id + " introuvable.");
-            return;
+        if (p != null) {
+            patients.remove(p);
         }
-
-        patients.remove(p);
-        System.out.println("Patient supprimé : " + p.getNomComplet());
     }
 
     public ObservableList<Patient> listerTousLesPatients() {
@@ -100,5 +87,4 @@ public class GestionPatients {
     public int getNombrePatients() {
         return patients.size();
     }
-
 }

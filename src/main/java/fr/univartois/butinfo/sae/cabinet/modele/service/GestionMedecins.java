@@ -57,6 +57,7 @@ public class GestionMedecins {
                 resultats.add(m);
             }
         }
+
         return resultats;
     }
 
@@ -68,6 +69,7 @@ public class GestionMedecins {
                 resultats.add(m);
             }
         }
+
         return resultats;
     }
 

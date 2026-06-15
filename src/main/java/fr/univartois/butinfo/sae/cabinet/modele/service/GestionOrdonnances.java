@@ -9,9 +9,6 @@ import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
- * Façade permettant de gérer les ordonnances médicales.
- */
 public class GestionOrdonnances {
 
     private final ObservableList<Ordonnance> ordonnances;
@@ -22,33 +19,22 @@ public class GestionOrdonnances {
 
     public Ordonnance creerOrdonnance(Medecin medecin, Patient patient,
             LocalDate dateValidite, String remarques) {
-
         Ordonnance ordo = new Ordonnance(medecin, patient, dateValidite, remarques);
         ordonnances.add(ordo);
-
-        System.out.println("Ordonnance créée (ID=" + ordo.getId() + ") pour "
-                + patient.getNomComplet() + " par Dr " + medecin.getNomComplet());
-
         return ordo;
     }
 
     public void ajouterPrescription(int ordonnanceId, Medicament medicament, int quantite,
             String posologie, int dureeJours, String instructions) {
-
         Ordonnance ordo = rechercherParId(ordonnanceId);
 
         if (ordo == null) {
-            System.out.println("ERREUR : Ordonnance ID=" + ordonnanceId + " introuvable.");
             return;
         }
 
         LignePrescription ligne = new LignePrescription(
                 medicament, quantite, posologie, dureeJours, instructions);
-
         ordo.ajouterPrescription(ligne);
-
-        System.out.println("Prescription ajoutée : " + medicament.getNom()
-                + " → ordonnance ID=" + ordonnanceId);
     }
 
     public Ordonnance rechercherParId(int id) {
@@ -107,5 +93,4 @@ public class GestionOrdonnances {
     public int getNombreOrdonnances() {
         return ordonnances.size();
     }
-
 }

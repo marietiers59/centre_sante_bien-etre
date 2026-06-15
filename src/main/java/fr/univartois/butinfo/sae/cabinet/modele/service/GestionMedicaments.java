@@ -72,6 +72,10 @@ public class GestionMedicaments {
         return medicaments;
     }
 
+    public ObservableList<Medicament> getListeMedicaments() {
+        return medicaments;
+    }
+
     public int getNombreMedicaments() {
         return medicaments.size();
     }
