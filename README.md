@@ -30,8 +30,6 @@ Membres :
 
 ## Répartition du travail
 
-**TABLEAU À COMPLÉTER**
-
 | Membre du groupe | Tâches réalisées                             | Ticket associé |
 |------------------|----------------------------------------------|----------------|
 | Marie TIERS      | Ajout des logger aux classes GestionRendezVous, Recherche et Statistiques    | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/12            |
