@@ -3,6 +3,9 @@ package fr.univartois.butinfo.sae.cabinet.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
+import java.util.Optional;
+
 import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medicament;
 import fr.univartois.butinfo.sae.cabinet.modele.service.GestionMedicaments;
 import javafx.fxml.FXML;
@@ -10,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextInputDialog;
 
 public class MedicamentControlleur {
 
@@ -30,6 +34,9 @@ public class MedicamentControlleur {
 
 	    @FXML
 	    private ListView<Medicament> medicamentListView;
+	    
+	    @FXML
+	    private Button supprimer;
 
 	    private GestionMedicaments gestionMedicaments;
 
@@ -79,5 +86,68 @@ public class MedicamentControlleur {
 	            descriptionLabel.setText("Description : " + medicament.getDescription());
 	        }
 	    }
+	    
+	    /**
+	     * Méthode liée au bouton Ajouter. 
+	     * Ouvre des boîtes de dialogue successives pour saisir les informations du nouveau médicament.
+	     */
+	    @FXML
+	    private void ajouterMedicament() {
+	        // 1. Saisie du Nom
+	        TextInputDialog dialogNom = new TextInputDialog();
+	        dialogNom.setTitle("Nouveau médicament");
+	        dialogNom.setHeaderText("Ajout d'un produit thérapeutique");
+	        dialogNom.setContentText("Entrez le nom du médicament :");
+	        Optional<String> resultatNom = dialogNom.showAndWait();
+	        if (resultatNom.isEmpty() || resultatNom.get().trim().isEmpty()) return;
 
+	        // 2. Saisie de la Description
+	        TextInputDialog dialogDesc = new TextInputDialog();
+	        dialogDesc.setTitle("Nouveau médicament");
+	        dialogDesc.setHeaderText("Description thérapeutique");
+	        dialogDesc.setContentText("Entrez sa description :");
+	        Optional<String> resultatDesc = dialogDesc.showAndWait();
+	        if (resultatDesc.isEmpty() || resultatDesc.get().trim().isEmpty()) return;
+
+	        // 3. Saisie du Prix
+	        TextInputDialog dialogPrix = new TextInputDialog("0.00");
+	        dialogPrix.setTitle("Nouveau médicament");
+	        dialogPrix.setHeaderText("Tarification");
+	        dialogPrix.setContentText("Entrez le prix unitaire (€) :");
+	        Optional<String> resultatPrix = dialogPrix.showAndWait();
+	        if (resultatPrix.isEmpty()) return;
+
+	        try {
+	            double prix = Double.parseDouble(resultatPrix.get().replace(',', '.'));
+	            
+	            // Création et insertion via le service métier
+	            Medicament nouveau = new Medicament(resultatNom.get().trim(), resultatDesc.get().trim(), prix);
+	            gestionMedicaments.ajouterMedicament(nouveau);
+	            
+	            // Auto-sélection du médicament nouvellement créé
+	            medicamentListView.getSelectionModel().select(nouveau);
+
+	        } catch (NumberFormatException e) {
+	            // En cas de saisie invalide pour le prix
+	            System.err.println("Erreur : Le prix saisi n'est pas un nombre valide.");
+	        }
+	    }
+
+	    /**
+	     * Méthode pour supprimer le médicament sélectionné dans la ListView.
+	     */
+	    @FXML
+	    private void supprimerMedicament() {
+	        // Récupération de l'élément sélectionné
+	        Medicament selection = medicamentListView.getSelectionModel().getSelectedItem();
+	        
+	        if (selection != null) {
+	            // Suppression via le service d'administration
+	            gestionMedicaments.supprimerMedicament(selection.getId());
+	            
+	            // Nettoyage de la sélection et des labels
+	            medicamentListView.getSelectionModel().clearSelection();
+	            afficherDetailsMedicament(null);
+	        }
+	    }
 }
