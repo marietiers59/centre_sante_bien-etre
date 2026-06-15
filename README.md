@@ -17,6 +17,10 @@
 | Marie TIERS      | Ajout des logger aux classes GestionRendezVous, Recherche et Statistiques    | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/12            |
 | Ikram ALOULI     | Ajout des logger aux classes GestionOrdonnances, GestionPatients    | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/11            |
 | Loan BILCKE      | Ajout des logger aux classes Main, GestionMedecins, GestionMedicaments       | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/10            |
+| Marie TIERS             | Modification de Recherche.java et de Statistiques.java, puis des parties qui leur sont reliées dans Main.java                                           | ...            |
+| Loan BILCKE              | Tests GestionMedecins, GestionRendezVous, LignePrescription                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/8 et https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/9           |
+| Ikram ALOULI              | Tests sur GestionMedicaments, test GestionOrdonnances, test GestionPatients                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/8 et https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/9            |
+| ...              | ...                                          | ...            |
 | ...              | ...                                          | ...            |
 
 ## Présentation du code de base
