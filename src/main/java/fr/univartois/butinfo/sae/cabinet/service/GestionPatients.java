@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 /**
  * Façade de gestion des patients.
  * Cette classe centralise les opérations CRUD sur les patients du cabinet médical.
