@@ -5,6 +5,12 @@ import static org.assertj.core.api.Assertions.within;
 import static org.mockito.Mockito.when;
 
 import fr.univartois.butinfo.sae.cabinet.enumeration.Specialite;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.LignePrescription;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medecin;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medicament;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Ordonnance;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Patient;
+
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

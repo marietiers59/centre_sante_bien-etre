@@ -1,6 +1,7 @@
 package fr.univartois.butinfo.sae.cabinet.controller;
 
 import fr.univartois.butinfo.sae.cabinet.modele.service.CabinetFacade;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,7 +47,32 @@ public class AccueilController {
 
     @FXML
     private void ouvrirGestionMedecins(ActionEvent event) {
-        System.out.println("Vue médecins : à implémenter");
+        try {
+            // 1. Chargement du fichier FXML (Vérifie bien qu'il est dans src/main/resources/view/medecins-view.fxml)
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/view/medecins-view.fxml")
+            );
+            if (loader.getLocation() == null) {
+                System.err.println("ERREUR : /view/medecins-view.fxml introuvable !");
+                return;
+            }
+            Parent root = loader.load();
+            
+            // 2. Configuration du contrôleur de la vue médecin
+            MedecinsController controller = loader.getController();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            // On injecte le gestionnaire et la scène d'accueil pour le bouton Retour
+            controller.setGestionMedecins(facade.getGestionMedecins());
+            controller.setStageEtScene(stage, sceneAccueil);
+
+            // 3. Affichage de la nouvelle scène
+            stage.setScene(new Scene(root, 800, 600));
+
+        } catch (IOException e) {
+            System.err.println("Erreur chargement médecins : " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @FXML

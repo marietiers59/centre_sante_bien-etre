@@ -1,4 +1,4 @@
-package fr.univartois.butinfo.sae.cabinet.modele;
+package fr.univartois.butinfo.sae.cabinet.modele.domaine;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
