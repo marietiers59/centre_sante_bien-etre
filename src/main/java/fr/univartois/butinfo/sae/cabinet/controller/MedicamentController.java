@@ -1,6 +1,9 @@
 package fr.univartois.butinfo.sae.cabinet.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -14,8 +17,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
+import javafx.stage.Stage;
 
-public class MedicamentControlleur {
+public class MedicamentController {
 
 	    @FXML
 	    private Button ajouter;
@@ -148,6 +152,23 @@ public class MedicamentControlleur {
 	            // Nettoyage de la sélection et des labels
 	            medicamentListView.getSelectionModel().clearSelection();
 	            afficherDetailsMedicament(null);
+	        }
+	    }
+	    
+	    private Scene sceneAccueil;
+
+	    public void setSceneAccueil(Scene sceneAccueil) {
+	        this.sceneAccueil = sceneAccueil;
+	    }
+
+	    /**
+	     * Méthode à lier à un nouveau bouton "Retour"
+	     */
+	    @FXML
+	    private void retournerAccueil(ActionEvent event) {
+	        if (sceneAccueil != null) {
+	            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	            stage.setScene(sceneAccueil);
 	        }
 	    }
 }

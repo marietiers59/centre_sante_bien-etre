@@ -1,6 +1,6 @@
 package fr.univartois.butinfo.sae.cabinet;
 
-import fr.univartois.butinfo.sae.cabinet.controller.MedicamentControlleur;
+import fr.univartois.butinfo.sae.cabinet.controller.MedicamentController;
 import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medicament;
 import fr.univartois.butinfo.sae.cabinet.modele.service.GestionMedicaments;
 import javafx.application.Application;
@@ -32,7 +32,7 @@ public class MedicamentApplication extends Application {
         Parent root = fxmlLoader.load();
 
         // 3. Récupération du contrôleur et injection du service de gestion
-        MedicamentControlleur controller = fxmlLoader.getController();
+        MedicamentController controller = fxmlLoader.getController();
         controller.setModel(gestionMedicaments);
 
         // 4. Création de la scène et affichage de la fenêtre principale
