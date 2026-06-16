@@ -1,7 +1,5 @@
 package fr.univartois.butinfo.sae.cabinet.modele.service;
 
-import fr.univartois.butinfo.sae.cabinet.Main;
-
 import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medicament;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,9 +14,8 @@ import org.slf4j.LoggerFactory;
  * Service de gestion des médicaments disponibles dans le système.
  */
 public class GestionMedicaments {
-	
-	private static final Logger logger = LoggerFactory.getLogger(GestionMedicaments.class.getSimpleName());
 
+    private static final Logger logger = LoggerFactory.getLogger(GestionMedicaments.class.getSimpleName());
 
     private final ObservableList<Medicament> medicaments;
 
@@ -69,7 +66,6 @@ public class GestionMedicaments {
         return resultats;
     }
 
-
     /**
      * Supprime un médicament par son ID.
      */
@@ -97,10 +93,8 @@ public class GestionMedicaments {
     public int getNombreMedicaments() {
         return medicaments.size();
     }
-    
+
     public ObservableList<Medicament> getListeMedicaments() {
         return this.medicaments;
     }
-
-
 }

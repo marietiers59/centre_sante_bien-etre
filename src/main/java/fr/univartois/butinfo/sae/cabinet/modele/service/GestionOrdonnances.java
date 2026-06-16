@@ -12,10 +12,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Service de gestion des ordonnances médicales.
  */
 public class GestionOrdonnances {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GestionOrdonnances.class);
 
     private final ObservableList<Ordonnance> ordonnances;
 
@@ -24,7 +29,6 @@ public class GestionOrdonnances {
      */
     public GestionOrdonnances() {
         this.ordonnances = FXCollections.observableArrayList();
-        
     }
 
     // -------------------------
@@ -33,14 +37,13 @@ public class GestionOrdonnances {
 
     /**
      * Crée une nouvelle ordonnance vide (sans prescriptions) et l'enregistre.
-     * @return l'ordonnance créée
      */
     public Ordonnance creerOrdonnance(Medecin medecin, Patient patient,
                                        LocalDate dateValidite, String remarques) {
         Ordonnance ordo = new Ordonnance(medecin, patient, dateValidite, remarques);
         ordonnances.add(ordo);
-        System.out.println("Ordonnance créée (ID=" + ordo.getId() + ") pour " +
-                           patient.getNomComplet() + " par Dr " + medecin.getNomComplet());
+        LOGGER.info("Ordonnance créée (ID=" + ordo.getId() + ") pour " +
+                patient.getNomComplet() + " par Dr " + medecin.getNomComplet());
         return ordo;
     }
 
@@ -48,16 +51,16 @@ public class GestionOrdonnances {
      * Ajoute une ligne de prescription à une ordonnance existante.
      */
     public void ajouterPrescription(int ordonnanceId, Medicament medicament, int quantite,
-                                        String posologie, int dureeJours, String instructions) {
+                                     String posologie, int dureeJours, String instructions) {
         Ordonnance ordo = rechercherParId(ordonnanceId);
         if (ordo == null) {
-            System.out.println("ERREUR : Ordonnance ID=" + ordonnanceId + " introuvable.");
+            LOGGER.error("ERREUR : Ordonnance ID=" + ordonnanceId + " introuvable.");
             return;
         }
         LignePrescription ligne = new LignePrescription(medicament, quantite, posologie, dureeJours, instructions);
         ordo.ajouterPrescription(ligne);
-        System.out.println("Prescription ajoutée : " + medicament.getNom() +
-                           " → ordonnance ID=" + ordonnanceId);
+        LOGGER.info("Prescription ajoutée : " + medicament.getNom() +
+                " → ordonnance ID=" + ordonnanceId);
     }
 
     /**
@@ -116,5 +119,4 @@ public class GestionOrdonnances {
     public int getNombreOrdonnances() {
         return ordonnances.size();
     }
-
 }

@@ -7,112 +7,141 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
- * Service de gestion des patients.
- * Fournit les opérations CRUD (Créer, Lire, Mettre à jour, Supprimer).
+ * Façade de gestion des patients.
+ * Cette classe centralise les opérations CRUD sur les patients du cabinet médical.
  */
 public class GestionPatients {
 
     // Liste interne des patients enregistrés
+    /** Logger utilisé pour tracer les actions du service. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(GestionPatients.class);
+
+    /** Liste observable des patients, utilisable directement par JavaFX. */
     private final ObservableList<Patient> patients;
 
     /**
-     * Constructeur : initialise la liste vide.
+     * Crée un service de gestion des patients avec une liste vide.
      */
     public GestionPatients() {
         this.patients = FXCollections.observableArrayList();
-        
     }
 
-    // -------------------------
-    // CRUD
-    // -------------------------
-
     /**
-     * Ajoute un patient si son numéro de sécu n'existe pas déjà.
+     * Ajoute un patient si son numéro de sécurité sociale n'existe pas déjà.
      */
-    public void ajouterPatient(Patient patient) {
-        if (rechercherParNumeroSecu(patient.getNumeroSecu()) != null) {
-            System.out.println("ERREUR : Un patient avec ce numéro de sécu existe déjà.");
-            return;
+    public boolean ajouterPatient(Patient patient) {
+        if (patient == null) {
+            LOGGER.error("Impossible d'ajouter un patient null.");
+            return false;
         }
+
+        if (rechercherParNumeroSecu(patient.getNumeroSecu()) != null) {
+            LOGGER.error("Un patient avec le numéro de sécurité sociale {} existe déjà.",
+                    patient.getNumeroSecu());
+            return false;
+        }
+
         patients.add(patient);
-        System.out.println("Patient ajouté : " + patient.getNomComplet());
+        LOGGER.info("Patient ajouté : {}", patient.getNomComplet());
+        return true;
     }
 
     /**
-     * Retourne un patient par son ID, ou null si introuvable.
+     * Recherche un patient par son identifiant.
      */
     public Patient rechercherParId(int id) {
-        for (Patient p : patients) {
-            if (p.getId() == id) return p;
+        for (Patient patient : patients) {
+            if (patient.getId() == id) {
+                return patient;
+            }
         }
         return null;
     }
 
     /**
-     * Retourne un patient par son numéro de sécurité sociale.
+     * Recherche un patient par son numéro de sécurité sociale.
      */
     public Patient rechercherParNumeroSecu(String numeroSecu) {
-        for (Patient p : patients) {
-            if (p.getNumeroSecu().equalsIgnoreCase(numeroSecu)) return p;
+        if (numeroSecu == null) return null;
+
+        for (Patient patient : patients) {
+            if (patient.getNumeroSecu().equalsIgnoreCase(numeroSecu)) {
+                return patient;
+            }
         }
         return null;
     }
 
     /**
-     * Recherche des patients dont le nom ou prénom contient le terme donné (insensible à la casse).
+     * Recherche les patients dont le nom ou le prénom contient le terme donné.
      */
     public List<Patient> rechercherParNom(String terme) {
         List<Patient> resultats = new ArrayList<>();
+        if (terme == null) return resultats;
+
         String termeLower = terme.toLowerCase();
-        for (Patient p : patients) {
-            if (p.getNom().toLowerCase().contains(termeLower) ||
-                p.getPrenom().toLowerCase().contains(termeLower)) {
-                resultats.add(p);
+        for (Patient patient : patients) {
+            if (patient.getNom().toLowerCase().contains(termeLower)
+                    || patient.getPrenom().toLowerCase().contains(termeLower)) {
+                resultats.add(patient);
             }
         }
         return resultats;
     }
 
     /**
-     * Met à jour les informations d'un patient (sauf ID et numéro de sécu).
+     * Met à jour les informations d'un patient.
      */
-    public void mettreAJourPatient(int id, String nouveauNom, String nouveauPrenom,
-                                       String nouveauTel, String nouveauEmail,
-                                       String nouvelleAdresse, double nouveauTauxRemboursement) {
-        Patient p = rechercherParId(id);
-        if (p == null) {
-            System.out.println("ERREUR : Patient ID=" + id + " introuvable.");
-            return;
+    public boolean mettreAJourPatient(int id, String nouveauNom, String nouveauPrenom,
+                                      String nouveauTel, String nouveauEmail,
+                                      String nouvelleAdresse, double nouveauTauxRemboursement) {
+        Patient patient = rechercherParId(id);
+        if (patient == null) {
+            LOGGER.error("Patient ID={} introuvable.", id);
+            return false;
         }
-        p.setNom(nouveauNom);
-        p.setPrenom(nouveauPrenom);
-        p.setTelephone(nouveauTel);
-        p.setEmail(nouveauEmail);
-        p.setAdresse(nouvelleAdresse);
-        p.setTauxRemboursement(nouveauTauxRemboursement);
-        System.out.println("Patient mis à jour : " + p.getNomComplet());
+
+        patient.setNom(nouveauNom);
+        patient.setPrenom(nouveauPrenom);
+        patient.setTelephone(nouveauTel);
+        patient.setEmail(nouveauEmail);
+        patient.setAdresse(nouvelleAdresse);
+        patient.setTauxRemboursement(nouveauTauxRemboursement);
+        LOGGER.info("Patient mis à jour : {}", patient.getNomComplet());
+        return true;
     }
 
     /**
-     * Supprime un patient par son ID.
+     * Supprime un patient grâce à son identifiant.
      */
-    public void supprimerPatient(int id) {
-        Patient p = rechercherParId(id);
-        if (p == null) {
-            System.out.println("ERREUR : Patient ID=" + id + " introuvable.");
-            return;
+    public boolean supprimerPatient(int id) {
+        Patient patient = rechercherParId(id);
+        if (patient == null) {
+            LOGGER.error("Patient ID={} introuvable.", id);
+            return false;
         }
-        patients.remove(p);
-        System.out.println("Patient supprimé : " + p.getNomComplet());
+
+        patients.remove(patient);
+        LOGGER.info("Patient supprimé : {}", patient.getNomComplet());
+        return true;
     }
 
     /**
-     * Retourne la liste complète des patients (copie défensive).
+     * Retourne une copie de la liste des patients.
      */
     public List<Patient> listerTousLesPatients() {
         return new ArrayList<>(patients);
+    }
+
+    /**
+     * Retourne la liste observable des patients pour JavaFX.
+     */
+    public ObservableList<Patient> getPatients() {
+        return patients;
     }
 
     /**
@@ -121,6 +150,4 @@ public class GestionPatients {
     public int getNombrePatients() {
         return patients.size();
     }
-
-
 }
