@@ -132,4 +132,8 @@ public class RDVController {
 
         return liste;
     }
+    
+    public void setGestionRendezVous(GestionRendezVous gestionRendezVous) {
+        this.gestionRendezVous = gestionRendezVous;
+    }
 }
