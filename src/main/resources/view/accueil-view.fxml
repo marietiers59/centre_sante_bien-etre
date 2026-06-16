@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="20.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univartois.butinfo.sae.cabinet.controller.AccueilController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="L'Éveil des Sources - Gestion Médicale" />
+    
+    <Button mnemonicParsing="false" onAction="#ouvrirGestionMedicaments" prefWidth="200.0" text="Gestion des Médicaments" />
+    <Button mnemonicParsing="false" onAction="#ouvrirGestionMedecins" prefWidth="200.0" text="Gestion des Médecins " />
+    <Button mnemonicParsing="false" onAction="#ouvrirGestionRendezVous" prefWidth="200.0" text="Gestion des Rendez Vous " />
+</VBox>

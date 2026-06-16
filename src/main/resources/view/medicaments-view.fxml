@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="fr.univartois.butinfo.sae.cabinet.controller.MedicamentController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <ListView fx:id="medicamentListView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <VBox prefHeight="123.0" prefWidth="417.0" spacing="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Détails du medicament" />
+                  <Label fx:id="idLabel" text="Id : " />
+                  <Label fx:id="nomLabel" text="Nom : " />
+                  <Label fx:id="descriptionLabel" text="Description : " />
+                  <Label fx:id="prixLabel" text="Prix :" />
+               </children>
+            </VBox>
+            <HBox alignment="BOTTOM_LEFT" prefHeight="50.0" prefWidth="417.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+               <children>
+                  <Button fx:id="ajouter" mnemonicParsing="false" onAction="#ajouterMedicament" text="Ajouter" />
+                  <Button fx:id="supprimer" mnemonicParsing="false" onAction="#supprimerMedicament" text="Supprimer" />
+                   <Button mnemonicParsing="false"
+              onAction="#retournerAccueil" text="Retour" />
+               </children>
+            </HBox>
+         </children></AnchorPane>
+  </items>
+</SplitPane>

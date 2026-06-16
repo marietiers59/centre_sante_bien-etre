@@ -1,85 +1,79 @@
-package fr.univartois.butinfo.sae.cabinet.service;
+package fr.univartois.butinfo.sae.cabinet.modele.service;
 
 import fr.univartois.butinfo.sae.cabinet.enumeration.Specialite;
-import fr.univartois.butinfo.sae.cabinet.modele.Medecin;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medecin;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
- * Service de gestion des médecins du cabinet.
+ * Façade permettant de gérer les médecins du cabinet.
  */
 public class GestionMedecins {
 
-    private final List<Medecin> medecins;
+    private static final Logger logger = LoggerFactory.getLogger(GestionMedecins.class);
 
-    /**
-     * Constructeur : initialise la liste vide.
-     */
+    private final ObservableList<Medecin> medecins;
+
     public GestionMedecins() {
-        this.medecins = new ArrayList<>();
+        this.medecins = FXCollections.observableArrayList();
     }
 
-    // -------------------------
-    // CRUD
-    // -------------------------
-
-    /**
-     * Enregistre un nouveau médecin (vérifie l'unicité du numéro d'ordre).
-     */
     public void ajouterMedecin(Medecin medecin) {
         if (rechercherParNumeroOrdre(medecin.getNumeroOrdre()) != null) {
-            System.out.println("ERREUR : Un médecin avec ce numéro d'ordre existe déjà.");
+            logger.info("ERREUR : Un médecin avec ce numéro d'ordre existe déjà.");
             return;
         }
         medecins.add(medecin);
-        System.out.println("Médecin ajouté : Dr " + medecin.getNomComplet());
+        logger.info("Médecin ajouté : Dr " + medecin.getNomComplet());
     }
 
-    /**
-     * Recherche un médecin par son ID.
-     */
     public Medecin rechercherParId(int id) {
         for (Medecin m : medecins) {
-            if (m.getId() == id) return m;
+            if (m.getId() == id) {
+                return m;
+            }
         }
         return null;
     }
 
-    /**
-     * Recherche un médecin par son numéro d'ordre.
-     */
     public Medecin rechercherParNumeroOrdre(String numeroOrdre) {
         for (Medecin m : medecins) {
-            if (m.getNumeroOrdre().equalsIgnoreCase(numeroOrdre)) return m;
+            if (m.getNumeroOrdre().equalsIgnoreCase(numeroOrdre)) {
+                return m;
+            }
         }
         return null;
     }
 
-    /**
-     * Recherche des médecins par nom ou prénom.
-     */
-    public List<Medecin> rechercherParNom(String terme) {
-        List<Medecin> resultats = new ArrayList<>();
+    public ObservableList<Medecin> rechercherParNom(String terme) {
+        ObservableList<Medecin> resultats = FXCollections.observableArrayList();
         String termeLower = terme.toLowerCase();
+
         for (Medecin m : medecins) {
-            if (m.getNom().toLowerCase().contains(termeLower) ||
-                m.getPrenom().toLowerCase().contains(termeLower)) {
+            if (m.getNom().toLowerCase().contains(termeLower)
+                    || m.getPrenom().toLowerCase().contains(termeLower)) {
                 resultats.add(m);
             }
         }
+
         return resultats;
     }
 
-    /**
-     * Retourne tous les médecins d'une spécialité donnée.
-     */
-    public List<Medecin> rechercherParSpecialite(Specialite specialite) {
-        List<Medecin> resultats = new ArrayList<>();
+    public ObservableList<Medecin> rechercherParSpecialite(Specialite specialite) {
+        ObservableList<Medecin> resultats = FXCollections.observableArrayList();
+
         for (Medecin m : medecins) {
             if (m.getSpecialite() == specialite) {
                 resultats.add(m);
             }
         }
+
         return resultats;
     }
 
@@ -90,17 +84,20 @@ public class GestionMedecins {
                                        String nouveauTel, String nouveauEmail,
                                        Specialite nouvelleSpecialite) {
         Medecin m = rechercherParId(id);
+
         if (m == null) {
-            System.out.println("ERREUR : Médecin ID=" + id + " introuvable.");
+            logger.error("ERREUR : Médecin ID=" + id + " introuvable.");
             return;
         }
+
         m.setNom(nouveauNom);
         m.setPrenom(nouveauPrenom);
         m.setTarifHoraire(nouveauTarifConsultation);
         m.setTelephone(nouveauTel);
         m.setEmail(nouveauEmail);
         m.setSpecialite(nouvelleSpecialite);
-        System.out.println("Médecin mis à jour : Dr " + m.getNomComplet());
+
+        logger.info("Médecin mis à jour : Dr " + m.getNomComplet());
     }
 
     /**
@@ -108,20 +105,22 @@ public class GestionMedecins {
      */
     public boolean supprimerMedecin(int id) {
         Medecin m = rechercherParId(id);
+
         if (m == null) {
-            System.out.println("ERREUR : Médecin ID=" + id + " introuvable.");
+            logger.error("ERREUR : Médecin ID=" + id + " introuvable.");
             return false;
         }
+
         medecins.remove(m);
-        System.out.println("Médecin supprimé : Dr " + m.getNomComplet());
+        logger.info("Médecin supprimé : Dr " + m.getNomComplet());
         return true;
     }
 
     /**
      * Retourne la liste complète des médecins.
      */
-    public List<Medecin> listerTousLesMedecins() {
-        return new ArrayList<>(medecins);
+    public ObservableList<Medecin> listerTousLesMedecins() {
+        return medecins;
     }
 
     /**
