@@ -2,11 +2,14 @@ package fr.univartois.butinfo.sae.cabinet.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
 import fr.univartois.butinfo.sae.cabinet.enumeration.Specialite;
-import fr.univartois.butinfo.sae.cabinet.modele.Medecin;
-import fr.univartois.butinfo.sae.cabinet.modele.Medicament;
-import fr.univartois.butinfo.sae.cabinet.modele.Ordonnance;
-import fr.univartois.butinfo.sae.cabinet.modele.Patient;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medecin;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medicament;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Ordonnance;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Patient;
+import fr.univartois.butinfo.sae.cabinet.modele.service.GestionOrdonnances;
+
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 

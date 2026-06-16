@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
  */
 public class GestionPatients {
 
-    // Liste interne des patients enregistrés
     /** Logger utilisé pour tracer les actions du service. */
     private static final Logger LOGGER = LoggerFactory.getLogger(GestionPatients.class);
 
@@ -79,8 +78,8 @@ public class GestionPatients {
     /**
      * Recherche les patients dont le nom ou le prénom contient le terme donné.
      */
-    public List<Patient> rechercherParNom(String terme) {
-        List<Patient> resultats = new ArrayList<>();
+    public ObservableList<Patient> rechercherParNom(String terme) {
+        ObservableList<Patient> resultats = FXCollections.observableArrayList();
         if (terme == null) return resultats;
 
         String termeLower = terme.toLowerCase();
@@ -90,6 +89,7 @@ public class GestionPatients {
                 resultats.add(patient);
             }
         }
+
         return resultats;
     }
 
@@ -131,10 +131,10 @@ public class GestionPatients {
     }
 
     /**
-     * Retourne une copie de la liste des patients.
+     * Retourne la liste observable des patients pour JavaFX.
      */
-    public List<Patient> listerTousLesPatients() {
-        return new ArrayList<>(patients);
+    public ObservableList<Patient> listerTousLesPatients() {
+        return patients;
     }
 
     /**

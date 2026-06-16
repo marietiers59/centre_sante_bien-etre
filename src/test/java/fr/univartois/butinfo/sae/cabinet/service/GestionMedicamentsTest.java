@@ -2,7 +2,10 @@ package fr.univartois.butinfo.sae.cabinet.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import fr.univartois.butinfo.sae.cabinet.modele.Medicament;
+
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medicament;
+import fr.univartois.butinfo.sae.cabinet.modele.service.GestionMedicaments;
+
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
