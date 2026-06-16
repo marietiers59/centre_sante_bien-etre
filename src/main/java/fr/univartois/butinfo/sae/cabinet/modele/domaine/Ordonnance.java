@@ -1,51 +1,29 @@
-package fr.univartois.butinfo.sae.cabinet.modele.domaine;
+package fr.univartois.butinfo.sae.cabinet.modele;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 /**
  * Classe représentant une ordonnance médicale. Une ordonnance est émise par un médecin pour un
  * patient et contient une liste de lignes de prescription.
- * @version 1.0
  */
 public class Ordonnance {
 
-  /** Identifiant unique de l'ordonnance, généré automatiquement. */
   private final int id;
-
-  /** Médecin ayant émis l'ordonnance. */
   private final Medecin medecin;
-
-  /** Patient destinataire de l'ordonnance. */
   private final Patient patient;
-
-  /** Date d'émission de l'ordonnance (initialisée à la date du jour). */
   private final LocalDate dateEmission;
-
-  /** Date limite de validité de l'ordonnance. */
+  // Date de validité de l'ordonnance
   private LocalDate dateValidite;
-
-  /** Liste des lignes de prescription de l'ordonnance (Observable pour l'IHM JavaFX). */
-  private final ObservableList<LignePrescription> prescriptions;
-
-  /** Remarques ou instructions complémentaires du médecin. */
+  private final List<LignePrescription> prescriptions;
   private String remarques;
 
-  /** Compteur statique pour générer des identifiants uniques. */
+  // Compteur statique pour les IDs
   private static int compteurId = 1;
 
   /**
-   * Constructeur complet d'une Ordonnance.
-   * La date d'émission est fixée à la date du jour et la liste des prescriptions est vide.
-   *
-   * @param medecin      le médecin émetteur
-   * @param patient      le patient destinataire
-   * @param dateValidite la date limite de validité
-   * @param remarques    les remarques complémentaires
+   * Constructeur complet d'une Ordonnance. La liste des prescriptions est initialisée vide.
    */
   public Ordonnance(Medecin medecin, Patient patient, LocalDate dateValidite, String remarques) {
     this.id = compteurId++;
@@ -53,16 +31,12 @@ public class Ordonnance {
     this.patient = patient;
     this.dateEmission = LocalDate.now();
     this.dateValidite = dateValidite;
-    // CORRECTION : Utilisation de FXCollections pour initialiser l'ObservableList
-    this.prescriptions = FXCollections.observableArrayList();
+    this.prescriptions = new ArrayList<>();
     this.remarques = remarques;
   }
 
   /**
-   * Constructeur simplifié : validité à 3 mois par défaut, aucune remarque.
-   *
-   * @param medecin le médecin émetteur
-   * @param patient le patient destinataire
+   * Constructeur simplifié (validité 3 mois par défaut, aucune remarque).
    */
   public Ordonnance(Medecin medecin, Patient patient) {
     this(medecin, patient, LocalDate.now().plusMonths(3), "");
@@ -74,18 +48,13 @@ public class Ordonnance {
 
   /**
    * Ajoute une ligne de prescription à l'ordonnance.
-   *
-   * @param ligne la ligne de prescription à ajouter
    */
   public void ajouterPrescription(LignePrescription ligne) {
     prescriptions.add(ligne);
   }
 
   /**
-   * Supprime la ligne de prescription correspondant au médicament donné.
-   *
-   * @param medicament le médicament dont la prescription doit être supprimée
-   * @return {@code true} si une prescription a été supprimée, {@code false} sinon
+   * Supprime une ligne de prescription par son médicament.
    */
   public boolean supprimerPrescription(Medicament medicament) {
     return prescriptions.removeIf(l -> l.getMedicament().equals(medicament));
@@ -95,113 +64,50 @@ public class Ordonnance {
   // Getters et Setters
   // -------------------------
 
-  /**
-   * Retourne l'identifiant unique de l'ordonnance.
-   *
-   * @return l'identifiant
-   */
   public int getId() {
     return id;
   }
 
-  /**
-   * Retourne le médecin ayant émis l'ordonnance.
-   *
-   * @return le médecin
-   */
   public Medecin getMedecin() {
     return medecin;
   }
 
-  /**
-   * Retourne le patient destinataire de l'ordonnance.
-   *
-   * @return le patient
-   */
   public Patient getPatient() {
     return patient;
   }
 
-  /**
-   * Retourne la date d'émission de l'ordonnance.
-   *
-   * @return la date d'émission
-   */
   public LocalDate getDateEmission() {
     return dateEmission;
   }
 
-  /**
-   * Retourne la date de fin de validité de l'ordonnance.
-   *
-   * @return la date de validité
-   */
   public LocalDate getDateValidite() {
     return dateValidite;
   }
 
-  /**
-   * Modifie la date de fin de validité de l'ordonnance.
-   *
-   * @param dateValidite la nouvelle date de validité
-   */
   public void setDateValidite(LocalDate dateValidite) {
     this.dateValidite = dateValidite;
   }
 
-  /**
-   * Retourne l'ObservableList sous sa forme d'origine. 
-   * Utile pour la lier (binder) directement à un composant ListView de l'IHM.
-   *
-   * @return l'ObservableList des lignes de prescription
-   */
-  public ObservableList<LignePrescription> getPrescriptions() {
-    return prescriptions;
-  }
-
-  /**
-   * Retourne une copie défensive de la liste sous forme de liste standard.
-   * Utile si une autre couche de l'application a absolument besoin d'une List classique immutable.
-   *
-   * @return une List standard contenant les lignes de prescription
-   */
-  public List<LignePrescription> getPrescriptionsAsList() {
+  public List<LignePrescription> getPrescriptions() {
+    // Retourne une copie défensive pour protéger la liste interne
     return new ArrayList<>(prescriptions);
   }
 
-  /**
-   * Retourne les remarques complémentaires du médecin.
-   *
-   * @return les remarques
-   */
   public String getRemarques() {
     return remarques;
   }
 
-  /**
-   * Modifie les remarques complémentaires.
-   *
-   * @param remarques les nouvelles remarques
-   */
   public void setRemarques(String remarques) {
     this.remarques = remarques;
   }
 
   /**
-   * Indique si l'ordonnance est encore valide à la date du jour.
-   *
-   * @return {@code true} si l'ordonnance est valide, {@code false} sinon
+   * Vérifie si l'ordonnance est encore valide à ce jour.
    */
   public boolean estValide() {
     return !LocalDate.now().isAfter(dateValidite);
   }
 
-  /**
-   * Indique si deux ordonnances sont égales (même identifiant).
-   *
-   * @param obj l'objet à comparer
-   * @return {@code true} si les deux ordonnances ont le même identifiant
-   */
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {
@@ -211,14 +117,9 @@ public class Ordonnance {
       return false;
     }
     Ordonnance o = (Ordonnance) obj;
-    return id == o.id;
+    return id == o.id; // Deux ordonnances sont égales si même ID
   }
 
-  /**
-   * Retourne le code de hachage basé sur l'identifiant.
-   *
-   * @return le code de hachage
-   */
   @Override
   public int hashCode() {
     return Integer.hashCode(id);
@@ -227,28 +128,24 @@ public class Ordonnance {
   /**
    * Calcul du prix total de l'ordonnance en fonction des prescriptions.
    * <p>
-   * Le prix total de l'ordonnance est fonction :
+   * Le prix total de l'ordonnance est fonction
    * <ul>
-   * <li>du prix de chaque médicament prescrit</li>
-   * <li>du taux de remboursement du patient.</li>
+   *   <li>du prix de chaque prestation</li>
+   *   <li>du taux de remboursement du patient.</li>
    * </ul>
    *
-   * @return le prix total de l'ordonnance à la charge du patient
+   * @return le prix total de l'ordonnance
    */
   public double getPrixTotal() {
-    double totalBrut = 0.0;
-    // Optimisation : Utilisation d'un foreach plus propre pour parcourir l'ObservableList
-    for (LignePrescription lp : prescriptions) {
-      totalBrut += lp.getMedicament().getPrix() * lp.getQuantite();
-    }
-    return totalBrut * (1.0 - patient.getTauxRemboursement());
-  }
-  
-  /**
-   * Retourne une représentation textuelle détaillée de l'ordonnance.
-   *
-   * @return l'ordonnance formatée
-   */
+	  double total = 0.0;
+
+	  for (LignePrescription ligne : prescriptions) {
+	    total += ligne.getMedicament().getPrix() * ligne.getQuantite();
+	  }
+
+	  return total * (1 - patient.getTauxRemboursement());
+	}
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration name="PropertiesConfig">
-
-    <Properties>
-        <Property name="filename">logs</Property>
-    </Properties>
+<Configuration status="WARN">
 
     <Appenders>
 
-        <Console name="STDOUT" target="SYSTEM_OUT">
-            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"/>
+        <Console name="MainConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="%msg%n"/>
         </Console>
 
-        <File name="LOGFILE" fileName="${filename}/logs.log">
+        <Console name="AppConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss} %c{1} - %msg%n"/>
+        </Console>
+
+        <File name="FileLogger" fileName="logs/application.log">
             <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss} %c{1} - %msg%n"/>
         </File>
 
@@ -24,7 +24,8 @@
         </Logger>
 
         <Root level="info">
-            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="AppConsole"/>
+            <AppenderRef ref="FileLogger"/>
         </Root>
 
     </Loggers>
