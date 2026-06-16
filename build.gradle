@@ -6,7 +6,7 @@
 plugins {
     id 'application'
     id 'java'
-    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'org.openjfx.javafxplugin' version '0.10.0' // Version stable et disponible
 }
 
 // La version du langage Java utilisée dans le projet.
@@ -21,7 +21,7 @@ repositories {
 // Le nom de la classe contenant la méthode "main".
 // Notez que le paquetage complet doit être spécifié.
 application {
-    mainClass = 'fr.univartois.butinfo.sae.cabinet.RDVApplication'
+    mainClass = 'fr.univartois.butinfo.sae.cabinet.CabinetApplication'
 }
 
 // La version de JavaFX utilisée dans le projet, et les composants requis.
