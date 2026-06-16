@@ -1,16 +1,16 @@
 package fr.univartois.butinfo.sae.cabinet;
 
 import fr.univartois.butinfo.sae.cabinet.enumeration.Specialite;
-import fr.univartois.butinfo.sae.cabinet.modele.Medecin;
-import fr.univartois.butinfo.sae.cabinet.modele.Medicament;
-import fr.univartois.butinfo.sae.cabinet.modele.Ordonnance;
-import fr.univartois.butinfo.sae.cabinet.modele.Patient;
-import fr.univartois.butinfo.sae.cabinet.modele.RendezVous;
-import fr.univartois.butinfo.sae.cabinet.service.GestionMedecins;
-import fr.univartois.butinfo.sae.cabinet.service.GestionMedicaments;
-import fr.univartois.butinfo.sae.cabinet.service.GestionOrdonnances;
-import fr.univartois.butinfo.sae.cabinet.service.GestionPatients;
-import fr.univartois.butinfo.sae.cabinet.service.GestionRendezVous;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medecin;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Medicament;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Ordonnance;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.Patient;
+import fr.univartois.butinfo.sae.cabinet.modele.domaine.RendezVous;
+import fr.univartois.butinfo.sae.cabinet.modele.service.GestionMedecins;
+import fr.univartois.butinfo.sae.cabinet.modele.service.GestionMedicaments;
+import fr.univartois.butinfo.sae.cabinet.modele.service.GestionOrdonnances;
+import fr.univartois.butinfo.sae.cabinet.modele.service.GestionPatients;
+import fr.univartois.butinfo.sae.cabinet.modele.service.GestionRendezVous;
 import fr.univartois.butinfo.sae.cabinet.utils.Recherche;
 import fr.univartois.butinfo.sae.cabinet.utils.Statistiques;
 
@@ -18,18 +18,39 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
- * Classe principale de démonstration du système de gestion de cabinet médical.
- * Exécutez cette classe pour tester toutes les fonctionnalités.
+ * Classe principale du système de gestion de cabinet médical.
+ * Cette classe fait office de point d'entrée pour l'application (Démonstration) 
+ * et permet de valider l'ensemble des fonctionnalités du système : les services CRUD, 
+ * la prise de rendez-vous avec gestion des conflits, la création d'ordonnances complexes,
+ * ainsi que les modules de statistiques et de recherche transversale.
+ *
+ * @author Loan Bilcke
+ * @version 1.0
  */
 public class Main {
 
+    /**
+     * Logger SLF4J de la classe Main servant à l'affichage structuré des données 
+     * et des étapes de la démonstration dans la console.
+     */
+    private static final Logger logger = LoggerFactory.getLogger(Main.class.getSimpleName());
 
+    /**
+     * Méthode principale exécutant le scénario complet de démonstration du cabinet médical.
+     * Elle orchestre l'initialisation des composants, les jeux de données d'essais,
+     * les interactions et l'affichage des états de sortie.
+     *
+     * @param args Les arguments de la ligne de commande (non utilisés ici).
+     */
     public static void main(String[] args) {
 
-        System.out.println("╔═══════════════════════════════════════════╗");
-        System.out.println("║   SYSTÈME DE GESTION DE CABINET MÉDICAL   ║");
-        System.out.println("╚═══════════════════════════════════════════╝\n");
+        logger.info("╔═══════════════════════════════════════════╗");
+        logger.info("║   SYSTÈME DE GESTION DE CABINET MÉDICAL   ║");
+        logger.info("╚═══════════════════════════════════════════╝\n");
 
         // ============================================================
         // 1. Initialisation des services
@@ -46,7 +67,7 @@ public class Main {
         // ============================================================
         // 2. Création de médecins
         // ============================================================
-        System.out.println("=== AJOUT DES MÉDECINS ===");
+        logger.info("=== AJOUT DES MÉDECINS ===");
         Medecin dr1 = new Medecin("Dupont", "Jean", "0312345678", "j.dupont@cabinet.fr",
                                    "ORD-001", Specialite.GENERALISTE, 30.0);
         Medecin dr2 = new Medecin("Martin", "Sophie", "0398765432", "s.martin@cabinet.fr",
@@ -60,7 +81,7 @@ public class Main {
         // ============================================================
         // 3. Création de patients
         // ============================================================
-        System.out.println("\n=== AJOUT DES PATIENTS ===");
+        logger.info("\n=== AJOUT DES PATIENTS ===");
         Patient p1 = new Patient("Leblanc", "Paul", "0612345678", "p.leblanc@mail.fr",
                                   "12 rue des Lilas, Arras",
                                   LocalDate.of(1985, 3, 22), "185036562012345", .50);
@@ -77,7 +98,7 @@ public class Main {
         // ============================================================
         // 4. Création de médicaments
         // ============================================================
-        System.out.println("\n=== AJOUT DES MÉDICAMENTS ===");
+        logger.info("\n=== AJOUT DES MÉDICAMENTS ===");
         Medicament med1 = new Medicament("Doliprane 1000mg",
                                           "Antalgique et antipyrétique", 5.5);
         Medicament med2 = new Medicament("Amoxicilline 500mg",
@@ -94,7 +115,7 @@ public class Main {
         // ============================================================
         // 5. Prise de rendez-vous
         // ============================================================
-        System.out.println("\n=== PRISE DE RENDEZ-VOUS ===");
+        logger.info("\n=== PRISE DE RENDEZ-VOUS ===");
         LocalDateTime rdv1Date = LocalDateTime.of(2025, 9, 10, 9, 0);
         LocalDateTime rdv2Date = LocalDateTime.of(2025, 9, 10, 10, 30);
         LocalDateTime rdv3Date = LocalDateTime.of(2025, 9, 11, 14, 0);
@@ -104,15 +125,19 @@ public class Main {
         RendezVous rdv3 = gestionRdv.prendreRendezVous(p3, dr3, rdv3Date, 20, "Vaccination enfant");
 
         // Confirmation du premier RDV
-        if (rdv1 != null) gestionRdv.confirmerRendezVous(rdv1.getId());
+        if (rdv1 != null) {
+            gestionRdv.confirmerRendezVous(rdv1.getId());
+        }
 
         // Annulation du troisième RDV
-        if (rdv3 != null) gestionRdv.annulerRendezVous(rdv3.getId());
+        if (rdv3 != null) {
+            gestionRdv.annulerRendezVous(rdv3.getId());
+        }
 
         // ============================================================
         // 6. Création d'ordonnances
         // ============================================================
-        System.out.println("\n=== CRÉATION D'ORDONNANCES ===");
+        logger.info("\n=== CRÉATION D'ORDONNANCES ===");
 
         Ordonnance ordo1 = gestionOrdonnances.creerOrdonnance(
                 dr1, p1, LocalDate.now().plusMonths(3), "Renouveler si nécessaire");
@@ -126,44 +151,56 @@ public class Main {
         gestionOrdonnances.ajouterPrescription(
                 ordo2.getId(), med4, 1,"1 comprimé le matin", 30, "Surveillance tension artérielle");
 
-        System.out.println("\n--- Détail des ordonnances ---");
-        System.out.println(ordo1);
-        System.out.println(ordo2);
+        logger.info("\n--- Détail des ordonnances ---");
+        logger.info("{}", ordo1);
+        logger.info("{}", ordo2);
 
         // ============================================================
         // 7. Module de recherche
         // ============================================================
-        System.out.println("\n=== MODULE DE RECHERCHE ===");
+        logger.info("\n=== MODULE DE RECHERCHE ===");
 
-        System.out.println("\n>> Recherche patient par nom 'leblanc':");
-        recherche.rechercherPatientParNom("leblanc");
+        logger.info(">> Recherche patient par nom 'leblanc':");
+        List<Patient> patientsParNom = recherche.rechercherPatientParNom("leblanc");
+        for (Patient p : patientsParNom) {
+            logger.info("  {}", p);
+        }
 
-        System.out.println("\n>> Recherche médecin par spécialité CARDIOLOGUE:");
-        recherche.rechercherMedecinParSpecialite(Specialite.CARDIOLOGUE);
+        logger.info(">> Recherche medecin par specialite CARDIOLOGUE:");
+        List<Medecin> cardiologues = recherche.rechercherMedecinParSpecialite(Specialite.CARDIOLOGUE);
+        for (Medecin m : cardiologues) {
+            logger.info("  {}", m);
+        }
 
-        System.out.println("\n>> Recherche médecin par nom 'martin':");
-        recherche.rechercherMedecinParNom("martin");
+        logger.info(">> Recherche medecin par nom 'martin':");
+        List<Medecin> medecinsParNom = recherche.rechercherMedecinParNom("martin");
+        for (Medecin m : medecinsParNom) {
+            logger.info("  {}", m);
+        }
 
-        System.out.println("\n>> Recherche patient par n° sécu:");
-        recherche.rechercherPatientParSecu("185036562012345");
+        logger.info(">> Recherche patient par numero secu:");
+        Patient patientSecu = recherche.rechercherPatientParSecu("185036562012345");
+        if (patientSecu != null) {
+            logger.info("  {}", patientSecu);
+        }
 
         // ============================================================
         // 8. Module de statistiques
         // ============================================================
-        System.out.println("\n=== MODULE DE STATISTIQUES ===");
-        stats.afficherTableauDeBord();
+        logger.info("\n=== MODULE DE STATISTIQUES ===");
+        logger.info(stats.getStatistiques());
 
         Medecin actif = stats.getMedecinLePlusActif();
         if (actif != null) {
-            System.out.println("Médecin le plus actif : Dr " + actif.getNomComplet());
+            logger.info("Medecin le plus actif : Dr {}", actif.getNomComplet());
         } else {
-            System.out.println("Aucun médecin actif trouvé.");
+            logger.info("Aucun medecin actif trouve.");
         }
 
         // ============================================================
         // 9. Mise à jour et suppression (CRUD)
         // ============================================================
-        System.out.println("\n=== MISE À JOUR ET SUPPRESSION ===");
+        logger.info("\n=== MISE À JOUR ET SUPPRESSION ===");
 
         // Mise à jour d'un médecin
         gestionMedecins.mettreAJourMedecin(dr1.getId(),
@@ -179,42 +216,45 @@ public class Main {
         gestionPatients.supprimerPatient(p3.getId());
 
         // Affichage final
-        System.out.println("\n=== ÉTAT FINAL ===");
+        logger.info("\n=== ÉTAT FINAL ===");
         List<Patient> patients = gestionPatients.listerTousLesPatients();
         if (patients.isEmpty()) {
-            System.out.println("Aucun patient enregistré.");
+            logger.info("Aucun patient enregistré.");
             return;
         }
-        System.out.println("=== LISTE DES PATIENTS (" + patients.size() + ") ===");
+        logger.info("=== LISTE DES PATIENTS (" + patients.size() + ") ===");
         for (Patient p : patients) {
-            System.out.println(p);
+            logger.info("{}", p);
         }
+        
         List<Medecin> medecins = gestionMedecins.listerTousLesMedecins();
         if (medecins.isEmpty()) {
-            System.out.println("Aucun médecin enregistré.");
+            logger.info("Aucun médecin enregistré.");
             return;
         }
-        System.out.println("=== LISTE DES MÉDECINS (" + medecins.size() + ") ===");
+        logger.info("=== LISTE DES MÉDECINS (" + medecins.size() + ") ===");
         for (Medecin m : medecins) {
-            System.out.println(m);
+            logger.info("{}", m);
         }
+        
         List<Medicament> medicaments = gestionMedicaments.listerTousLesMedicaments();
         if (medicaments.isEmpty()) {
-            System.out.println("Aucun médicament enregistré.");
+            logger.info("Aucun médicament enregistré.");
             return;
         }
-        System.out.println("=== LISTE DES MÉDICAMENTS (" + medicaments.size() + ") ===");
+        logger.info("=== LISTE DES MÉDICAMENTS (" + medicaments.size() + ") ===");
         for (Medicament m : medicaments) {
-            System.out.println(m);
+            logger.info("{}", m);
         }
+        
         List<RendezVous> rendezVous = gestionRdv.listerTousLesRendezVous();
         if (rendezVous.isEmpty()) {
-            System.out.println("Aucun rendez-vous enregistré.");
+            logger.info("Aucun rendez-vous enregistré.");
             return;
         }
-        System.out.println("=== LISTE DES RENDEZ-VOUS (" + rendezVous.size() + ") ===");
+        logger.info("=== LISTE DES RENDEZ-VOUS (" + rendezVous.size() + ") ===");
         for (RendezVous rdv : rendezVous) {
-            System.out.println(rdv);
+            logger.info("{}", rdv);
         }
     }
 }
