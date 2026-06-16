@@ -44,6 +44,7 @@ Membres :
 | Ikram ALOULI             | Vue de gestion médecins                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/14            |
 | Loan BILCKE             | Vue de gestion médicaments                                          | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/14            |
 | Marie TIERS              | Vue de gestion rendez-vous                                           | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/14            |
+| Ikram ALOULI, Loan BILCKE et Marie TIERS              | Vue de la page d'accueil de l'application                                           | https://gitlab.univ-artois.fr/marie_tiers/gestion-cabinet-medical/-/work_items/14            |
 
 ## Présentation du code de base
 
