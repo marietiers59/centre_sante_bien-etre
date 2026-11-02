@@ -329,3 +329,6 @@ Temporary Items
 
 
 .fake
+
+# Réglages personnels de VS Code : jamais dans le dépôt
+.vscode/
